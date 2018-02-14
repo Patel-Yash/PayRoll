@@ -38,13 +38,13 @@ public class EmployeeController {
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
     public boolean delete(@PathVariable String id) throws IOException {
-        //return employeeDao.delete(id);
-        return true;
+        return employeeDao.delete(id);
+
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
     public Employee getById(@PathVariable String id) throws IOException {
-        // return employeeDao.getById(id);
-        return null;
+         return employeeDao.getById(id);
+
     }
 }

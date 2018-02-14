@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/payroll-structure")
+@RequestMapping("/salary-structure")
 public class SalaryStructureController {
 
     @RequestMapping(method = RequestMethod.POST)

@@ -5,6 +5,10 @@ import com.brevitaz.dao.EmployeeDao;
 import com.brevitaz.model.Employee;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.common.xcontent.XContentType;
@@ -53,12 +57,35 @@ public class EmployeeDaoImpl implements EmployeeDao
     }
 
     @Override
-    public boolean delete() {
-        return false;
+    public boolean delete(String id) throws IOException {
+        DeleteRequest request = new DeleteRequest(
+                INDEX_NAME,
+                TYPE_NAME,
+                id);
+
+        DeleteResponse response = client.getClient().delete(request);
+
+        System.out.println(response.status());
+
+        System.out.println(response);
+        return true;
     }
 
     @Override
-    public Employee getById() {
-        return null;
+    public Employee getById(String id) throws IOException {
+        GetRequest getRequest = new GetRequest(
+                INDEX_NAME,
+                TYPE_NAME,
+                id);
+
+        GetResponse getResponse = client.getClient().get(getRequest);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Employee employee  = objectMapper.readValue(getResponse.getSourceAsString(),Employee.class);
+
+        System.out.println("wait ...");
+        System.out.println(employee);
+        return employee;
     }
 }
