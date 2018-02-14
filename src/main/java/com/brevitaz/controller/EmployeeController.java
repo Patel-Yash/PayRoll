@@ -24,16 +24,16 @@ public class EmployeeController {
     }
 
 
-    @RequestMapping(method = {RequestMethod.GET})
+    @RequestMapping(method = RequestMethod.GET)
     public List<Employee> getAll() throws IOException {
-        // return employeeDao.getAll();
-        return null;
+         return employeeDao.getAll();
+
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public boolean update(@RequestBody Employee employee, @PathVariable String id) throws IOException {
-        //return employeeDao.update(employee,id);
-        return true;
+        return employeeDao.update(employee,id);
+
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
