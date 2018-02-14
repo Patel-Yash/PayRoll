@@ -6,7 +6,7 @@ import java.util.List;
 public class SalaryStructure {
 
     private String id;
-    private List<SalaryComponent> salaryComponents = new ArrayList<>();
+    private List<SalaryStructureComponent> salaryStructureComponents = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -16,19 +16,19 @@ public class SalaryStructure {
         this.id = id;
     }
 
-    public List<SalaryComponent> getSalaryComponents() {
-        return salaryComponents;
+    public List<SalaryStructureComponent> getSalaryComponents() {
+        return salaryStructureComponents;
     }
 
-    public void setSalaryComponents(List<SalaryComponent> salaryComponents) {
-        this.salaryComponents = salaryComponents;
+    public void setSalaryComponents(List<SalaryStructureComponent> salaryComponents) {
+        this.salaryStructureComponents = salaryComponents;
     }
 
     @Override
     public String toString() {
         return "SalaryStructure{" +
                 "id='" + id + '\'' +
-                ", salaryComponents=" + salaryComponents +
+                ", salaryComponents=" + salaryStructureComponents +
                 '}';
     }
 }

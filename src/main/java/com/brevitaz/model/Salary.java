@@ -7,4 +7,5 @@ public class Salary {
     private double ctc;
     private double variablePay;
 
+
 }
