@@ -6,13 +6,23 @@ import java.util.List;
 public class SalaryStructure {
 
     private String id;
+    private double ctc;
     private List<SalaryStructureComponent> salaryStructureComponents = new ArrayList<>();
 
     public String getId() {
         return id;
     }
 
+    public double getCtc() {
+        return ctc;
+    }
+
+    public void setCtc(double ctc) {
+        this.ctc = ctc;
+    }
+
     public void setId(String id) {
+
         this.id = id;
     }
 
@@ -28,7 +38,8 @@ public class SalaryStructure {
     public String toString() {
         return "SalaryStructure{" +
                 "id='" + id + '\'' +
-                ", salaryComponents=" + salaryStructureComponents +
+                ", ctc=" + ctc +
+                ", salaryStructureComponents=" + salaryStructureComponents +
                 '}';
     }
 }

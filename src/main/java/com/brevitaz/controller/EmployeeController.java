@@ -1,7 +1,10 @@
 package com.brevitaz.controller;
 
 
+import com.brevitaz.dao.EmployeeDao;
+import com.brevitaz.dao.impl.EmployeeDaoImpl;
 import com.brevitaz.model.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -11,11 +14,13 @@ import java.util.List;
 @RequestMapping("/employee")
 public class EmployeeController {
 
+    @Autowired
+    EmployeeDao employeeDao;
 
     @RequestMapping(method = RequestMethod.POST)
     public boolean create(@RequestBody Employee employee) throws IOException {
-        // return employeeDao.insert(employee);
-        return true;
+        return employeeDao.create(employee);
+
     }
 
 
