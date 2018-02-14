@@ -12,35 +12,16 @@ import java.util.List;
 public class SalaryStructureController {
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody SalaryStructure salarystructure) throws IOException
+    public boolean create(@RequestBody SalaryStructure salaryStructure)
     {
         return true;
     }
 
-    @RequestMapping(value = "",method = RequestMethod.GET)
-    public List<SalaryStructureComponent> getAll()
+    @RequestMapping(method = RequestMethod.GET)
+    public SalaryStructure getById(@PathVariable String id)
     {
         return null;
     }
-
-    @RequestMapping(value = "/{id}" , method = RequestMethod.GET)
-    public boolean getByName(@PathVariable String name)
-    {
-        return true;
-    }
-
-    @RequestMapping(value = "/{name}" , method = RequestMethod.PUT)
-    public boolean update(@RequestBody SalaryStructure salaryStructure, @PathVariable String name)
-    {
-        return true;
-    }
-
-    @RequestMapping(value = "/{name}" , method = RequestMethod.DELETE)
-    public boolean delete(@PathVariable String name)
-    {
-        return true;
-    }
-
 
 
 
