@@ -117,7 +117,6 @@ public class EmployeeDaoImpl implements EmployeeDao
 
         Employee employee  = objectMapper.readValue(getResponse.getSourceAsString(),Employee.class);
 
-        System.out.println("wait ...");
         System.out.println(employee);
         return employee;
     }
