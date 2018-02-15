@@ -13,6 +13,12 @@ public class SalaryStructure {
         return id;
     }
 
+    public void setId(String id) {
+
+        this.id = id;
+    }
+
+
     public double getCtc() {
         return ctc;
     }
@@ -21,10 +27,6 @@ public class SalaryStructure {
         this.ctc = ctc;
     }
 
-    public void setId(String id) {
-
-        this.id = id;
-    }
 
     public List<SalaryStructureComponent> getSalaryComponents() {
         return salaryStructureComponents;

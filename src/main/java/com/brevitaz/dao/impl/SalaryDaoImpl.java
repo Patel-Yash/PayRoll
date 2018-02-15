@@ -1,4 +1,6 @@
 package com.brevitaz.dao.impl;
 
-public class SalaryDaoImpl {
+import com.brevitaz.dao.SalaryDao;
+
+public class SalaryDaoImpl implements SalaryDao {
 }

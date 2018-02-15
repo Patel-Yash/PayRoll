@@ -115,7 +115,7 @@ public class SalaryStructureComponentDaoImpl implements SalaryStructureComponent
 
         SalaryStructureComponent salaryStructureComponent  = objectMapper.readValue(getResponse.getSourceAsString(),SalaryStructureComponent.class);
 
-        System.out.println("wait ...");
+
         System.out.println(salaryStructureComponent);
         return salaryStructureComponent;
     }
