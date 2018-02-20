@@ -6,11 +6,11 @@ import com.brevitaz.model.Salary;
 import java.io.IOException;
 import java.util.List;
 
-public interface SalaryDao {
+public interface SalaryDao
+{
     public boolean create(Salary salary) throws IOException;
     public List<Salary> getAll() throws IOException;
     public boolean update(Salary salary,String id) throws IOException;
     public boolean delete(String id)throws IOException;
     public Employee getById(String id)throws IOException;
-
 }
