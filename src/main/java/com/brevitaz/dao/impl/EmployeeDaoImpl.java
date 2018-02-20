@@ -31,7 +31,7 @@ import java.util.List;
 public class EmployeeDaoImpl implements EmployeeDao
 {
 
-    private final String INDEX_NAME = "employee";
+    private final String INDEX_NAME = "pr_employee";
     private final String TYPE_NAME = "doc";
 
     ObjectMapper objectMapper = new ObjectMapper();

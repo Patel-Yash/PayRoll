@@ -1,6 +1,5 @@
 package com.brevitaz.dao;
 
-import com.brevitaz.model.Employee;
 import com.brevitaz.model.Salary;
 
 import java.io.IOException;
