@@ -2,7 +2,6 @@ package com.brevitaz.dao.impl;
 
 import com.brevitaz.config.ElasticConfig;
 import com.brevitaz.dao.SalaryDao;
-import com.brevitaz.model.Employee;
 import com.brevitaz.model.Salary;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,11 +18,14 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Repository
 public class SalaryDaoImpl implements SalaryDao
 {
     private final String INDEX_NAME = "salary";
@@ -100,7 +102,7 @@ public class SalaryDaoImpl implements SalaryDao
     }
 
     @Override
-    public Employee getById(String id) throws IOException {
+    public Salary getById(String id) throws IOException {
         GetRequest getRequest = new GetRequest(
                 INDEX_NAME,
                 TYPE_NAME,
