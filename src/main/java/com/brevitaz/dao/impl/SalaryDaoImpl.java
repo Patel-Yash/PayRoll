@@ -2,6 +2,7 @@ package com.brevitaz.dao.impl;
 
 import com.brevitaz.config.ElasticConfig;
 import com.brevitaz.dao.SalaryDao;
+import com.brevitaz.model.Employee;
 import com.brevitaz.model.Salary;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +24,6 @@ import org.springframework.stereotype.Repository;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Repository
 public class SalaryDaoImpl implements SalaryDao
