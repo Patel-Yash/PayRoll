@@ -2,8 +2,17 @@ package com.brevitaz.model;
 
 public class SalarySlip {
 
+    private String id;
     private String eid;
     private double variablePay;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getEid() {
         return eid;
@@ -24,7 +33,8 @@ public class SalarySlip {
     @Override
     public String toString() {
         return "SalarySlip{" +
-                "eid='" + eid + '\'' +
+                "id='" + id + '\'' +
+                ", eid='" + eid + '\'' +
                 ", variablePay=" + variablePay +
                 '}';
     }

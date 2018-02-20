@@ -2,11 +2,20 @@ package com.brevitaz.model;
 
 public class Salary {
 
+    private String id;
     private String eid;
     private String ssId;
     private double grossSalary;
     private double variablePay;
     private double otherAllowance;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getEid() {
         return eid;
@@ -51,7 +60,8 @@ public class Salary {
     @Override
     public String toString() {
         return "Salary{" +
-                "eid='" + eid + '\'' +
+                "id='" + id + '\'' +
+                ", eid='" + eid + '\'' +
                 ", ssId='" + ssId + '\'' +
                 ", grossSalary=" + grossSalary +
                 ", variablePay=" + variablePay +
