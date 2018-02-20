@@ -41,7 +41,7 @@ public class SalaryDaoImpl implements SalaryDao
     public boolean create(Salary salary) throws IOException {
         IndexRequest request = new IndexRequest(
                 INDEX_NAME,
-                TYPE_NAME,""+salary.getId()
+                TYPE_NAME,""+salary.getEid()
         );
 
         //ObjectMapper objectMapper = new ObjectMapper();
