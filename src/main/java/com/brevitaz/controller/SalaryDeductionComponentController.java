@@ -1,5 +1,6 @@
 package com.brevitaz.controller;
 
+import com.brevitaz.dao.SalaryDeductionComponentDao;
 import com.brevitaz.dao.SalaryStructureComponentDao;
 import com.brevitaz.model.SalaryDeductionComponent;
 import com.brevitaz.model.SalaryStructureComponent;
