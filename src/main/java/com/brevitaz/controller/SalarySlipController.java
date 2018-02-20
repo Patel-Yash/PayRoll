@@ -1,5 +1,6 @@
 package com.brevitaz.controller;
 
+import com.brevitaz.dao.SalarySlipDao;
 import com.brevitaz.model.Employee;
 import com.brevitaz.model.SalarySlip;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class SalarySlipController
 {
 
     @Autowired
-    SalarySlip salarySlip;
+    SalarySlipDao salarySlipDao;
 
     @RequestMapping(method = RequestMethod.POST)
     public boolean create(@RequestBody SalarySlip salarySlip) throws IOException {
@@ -23,25 +24,25 @@ public class SalarySlipController
 
     @RequestMapping(method = RequestMethod.GET)
     public List<SalarySlip> getAll() throws IOException {
-        return salarySlip.getAll();
+        return salarySlipDao.getAll();
 
     }
 
     @RequestMapping(value = "/{eid}", method = RequestMethod.PUT)
     public boolean update(@RequestBody SalarySlip salarySlip, @PathVariable String eid) throws IOException {
-        return salarySlip.update(salarySlip,eid);
+        return salarySlipDao.update(salarySlip,eid);
 
     }
 
     @RequestMapping(value = "/{eid}", method = {RequestMethod.DELETE})
     public boolean delete(@PathVariable String eid) throws IOException {
-        return salarySlip.delete(id);
+        return salarySlipDao.delete(eid);
 
     }
 
     @RequestMapping(value = "/{eid}", method = {RequestMethod.GET})
-    public Employee getById(@PathVariable String eid) throws IOException {
-        return salarySlip.getById(eid);
+    public SalarySlip getById(@PathVariable String eid) throws IOException {
+        return salarySlipDao.getById(eid);
 
     }
 }
