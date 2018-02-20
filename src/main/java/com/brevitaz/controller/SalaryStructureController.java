@@ -1,5 +1,6 @@
 package com.brevitaz.controller;
 
+import com.brevitaz.dao.SalaryStructureDao;
 import com.brevitaz.model.Employee;
 import com.brevitaz.model.SalaryStructureComponent;
 import com.brevitaz.model.SalaryStructure;
@@ -17,20 +18,18 @@ public class SalaryStructureController {
     SalaryStructureDao salaryStructureDao;
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody SalaryStructure salaryStructure)
-    {
+    public boolean create(@RequestBody SalaryStructure salaryStructure) throws IOException {
         return salaryStructureDao.create(salaryStructure);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public SalaryStructure getById(@PathVariable String id)
-    {
+    public SalaryStructure getById(@PathVariable String id) throws IOException {
         return salaryStructureDao.getById(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public boolean update(@RequestBody SalaryStructure salaryStructure, @PathVariable String id) throws IOException {
-        return salaryStructure.update(salaryStructure,id);
+        return salaryStructureDao.update(salaryStructure,id);
 
     }
 
