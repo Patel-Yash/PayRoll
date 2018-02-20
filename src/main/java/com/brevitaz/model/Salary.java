@@ -2,25 +2,34 @@ package com.brevitaz.model;
 
 public class Salary {
 
-    private String id;
-    //private String salaryStructureId;
-    private double ctc;
+    private String eid;
+    private String ssId;
+    private double grossSalary;
     private double variablePay;
+    private double otherAllowance;
 
-    public String getId() {
-        return id;
+    public String getEid() {
+        return eid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEid(String eid) {
+        this.eid = eid;
     }
 
-    public double getCtc() {
-        return ctc;
+    public String getSsId() {
+        return ssId;
     }
 
-    public void setCtc(double ctc) {
-        this.ctc = ctc;
+    public void setSsId(String ssId) {
+        this.ssId = ssId;
+    }
+
+    public double getGrossSalary() {
+        return grossSalary;
+    }
+
+    public void setGrossSalary(double grossSalary) {
+        this.grossSalary = grossSalary;
     }
 
     public double getVariablePay() {
@@ -31,12 +40,22 @@ public class Salary {
         this.variablePay = variablePay;
     }
 
+    public double getOtherAllowance() {
+        return otherAllowance;
+    }
+
+    public void setOtherAllowance(double otherAllowance) {
+        this.otherAllowance = otherAllowance;
+    }
+
     @Override
     public String toString() {
         return "Salary{" +
-                "id='" + id + '\'' +
-                ", ctc=" + ctc +
+                "eid='" + eid + '\'' +
+                ", ssId='" + ssId + '\'' +
+                ", grossSalary=" + grossSalary +
                 ", variablePay=" + variablePay +
+                ", otherAllowance=" + otherAllowance +
                 '}';
     }
 }

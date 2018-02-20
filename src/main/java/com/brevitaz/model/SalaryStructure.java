@@ -6,7 +6,6 @@ import java.util.List;
 public class SalaryStructure {
 
     private String id;
-    private double ctc;
     private List<SalaryStructureComponent> salaryStructureComponents = new ArrayList<>();
 
     public String getId() {
@@ -17,16 +16,6 @@ public class SalaryStructure {
 
         this.id = id;
     }
-
-
-    public double getCtc() {
-        return ctc;
-    }
-
-    public void setCtc(double ctc) {
-        this.ctc = ctc;
-    }
-
 
     public List<SalaryStructureComponent> getSalaryComponents() {
         return salaryStructureComponents;
@@ -40,7 +29,6 @@ public class SalaryStructure {
     public String toString() {
         return "SalaryStructure{" +
                 "id='" + id + '\'' +
-                ", ctc=" + ctc +
                 ", salaryStructureComponents=" + salaryStructureComponents +
                 '}';
     }

@@ -6,6 +6,7 @@ import java.util.List;
 public class SalaryStructureComponent {
 
     private String id;
+    private String displayName;
     private String name;
     private Type type;
     private enum Type {percentage,fixValue;}
@@ -27,6 +28,15 @@ public class SalaryStructureComponent {
         this.id = id;
     }
 
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,12 +53,16 @@ public class SalaryStructureComponent {
         this.value = value;
     }
 
+
     @Override
     public String toString() {
         return "SalaryStructureComponent{" +
                 "id='" + id + '\'' +
+                ", displayName='" + displayName + '\'' +
                 ", name='" + name + '\'' +
+                ", type=" + type +
                 ", value=" + value +
                 '}';
     }
+
 }

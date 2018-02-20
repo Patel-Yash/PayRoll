@@ -12,5 +12,5 @@ public interface SalaryDao
     public List<Salary> getAll() throws IOException;
     public boolean update(Salary salary,String id) throws IOException;
     public boolean delete(String id)throws IOException;
-    public Employee getById(String id)throws IOException;
+    public Salary getById(String id)throws IOException;
 }
