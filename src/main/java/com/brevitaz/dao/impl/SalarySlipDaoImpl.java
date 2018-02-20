@@ -18,11 +18,13 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class SalarySlipDaoImpl implements SalarySlipDao
 {
     private final String INDEX_NAME = "salary-slip";
