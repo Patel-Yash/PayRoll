@@ -1,13 +1,17 @@
 package com.brevitaz.model;
 
+
 public class SalaryDeductionComponent {
 
     private String id;
     private String displayName;
     private String name;
     private Type type;
-    private enum Type {PERCENTAGE,FIXED_VALUE,CONDITION;}
+    private enum Type {PERCENTAGE,FIXED_VALUE8;}
     private double value;
+    private Condition condition;
+
+
 
     public Type getType() {
         return type;
