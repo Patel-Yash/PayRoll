@@ -6,7 +6,7 @@ public class SalaryDeductionComponent {
     private String displayName;
     private String name;
     private Type type;
-    private enum Type {percentage,fixValue;}
+    private enum Type {PERCENTAGE,FIXED_VALUE,CONDITION;}
     private double value;
 
     public Type getType() {
