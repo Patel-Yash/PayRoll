@@ -28,7 +28,6 @@ public class SalaryStructureComponent {
         this.id = id;
     }
 
-
     public String getDisplayName() {
         return displayName;
     }

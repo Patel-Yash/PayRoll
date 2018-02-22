@@ -13,16 +13,15 @@ public class SalaryStructure {
     }
 
     public void setId(String id) {
-
         this.id = id;
     }
 
-    public List<SalaryStructureComponent> getSalaryComponents() {
+    public List<SalaryStructureComponent> getSalaryStructureComponents() {
         return salaryStructureComponents;
     }
 
-    public void setSalaryComponents(List<SalaryStructureComponent> salaryComponents) {
-        this.salaryStructureComponents = salaryComponents;
+    public void setSalaryStructureComponents(List<SalaryStructureComponent> salaryStructureComponents) {
+        this.salaryStructureComponents = salaryStructureComponents;
     }
 
     @Override
