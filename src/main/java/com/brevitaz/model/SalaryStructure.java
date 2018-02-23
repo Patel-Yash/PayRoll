@@ -16,8 +16,8 @@ public class SalaryStructure {
         this.id = id;
     }
 
-    public List<SalaryStructureComponent> getSalaryStructureComponents() {
-        return salaryStructureComponents;
+    public List<SalaryStructureComponent> getSalaryStructureComponents(List<SalaryStructureComponent> salaryStructureComponents) {
+        return this.salaryStructureComponents;
     }
 
     public void setSalaryStructureComponents(List<SalaryStructureComponent> salaryStructureComponents) {
