@@ -18,7 +18,8 @@ public class SalaryController {
     SalaryDao salaryDao;
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody Salary salary) throws IOException {
+    public boolean create(@RequestBody Salary salary) throws IOException// give salary a ssid
+    {
         return salaryDao.create(salary);
     }
 
