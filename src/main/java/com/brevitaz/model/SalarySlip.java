@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SalarySlip {
-
     private String id;
     private String eid;
     private double variablePay;
