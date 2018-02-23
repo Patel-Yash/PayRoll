@@ -70,6 +70,7 @@ public class SalaryStructureDaoTest
 
     }
 
+    @Test
     public void updateTest() throws IOException {
         SalaryStructureComponent salaryStructureComponent = new SalaryStructureComponent();
 
@@ -88,13 +89,71 @@ public class SalaryStructureDaoTest
         boolean status = salaryStructureDao.create(salaryStructure1);
         Assert.assertEquals(true,status);
 
-        boolean salaryStructure = salaryStructureDao.update(salaryStructure1,"3");
+        SalaryStructureComponent salaryStructureComponent1= new SalaryStructureComponent();
+
+        salaryStructureComponent1.setId("14");
+        salaryStructureComponent1.setDisplayName("CE");
+        salaryStructureComponent1.setName("CE@2000F");
+        salaryStructureComponent1.setValue(2000);
+
+        List<SalaryStructureComponent>salaryStructureComponents1 = new ArrayList<>();
+        salaryStructureComponents1.add(salaryStructureComponent1);
+
+
+
+        salaryStructure1.setSalaryStructureComponents(salaryStructureComponents1);
+        boolean status1 = salaryStructureDao.update(salaryStructure1,"3");
+        Assert.assertEquals(true,status1);
+    }
+
+    @Test
+    public void deleteTest() throws IOException {
+        SalaryStructureComponent salaryStructureComponent = new SalaryStructureComponent();
+
+        salaryStructureComponent.setId("14");
+        salaryStructureComponent.setDisplayName("HRA");
+        salaryStructureComponent.setName("HRA@10%");
+        salaryStructureComponent.setValue(10);
+
+        List<SalaryStructureComponent>salaryStructureComponents = new ArrayList<>();
+        salaryStructureComponents.add(salaryStructureComponent);
+
+        SalaryStructure salaryStructure1 = new SalaryStructure();
+        salaryStructure1.setId("4");
+        salaryStructure1.getSalaryStructureComponents(salaryStructureComponents);
+
+        boolean status = salaryStructureDao.create(salaryStructure1);
+        Assert.assertEquals(true,status);
+
+        boolean status1 = salaryStructureDao.delete("4");
+        Assert.assertEquals(true,status1);
 
     }
 
+    @Test
+    public void getByIdTest() throws IOException {
+        SalaryStructureComponent salaryStructureComponent = new SalaryStructureComponent();
+
+        salaryStructureComponent.setId("14");
+        salaryStructureComponent.setDisplayName("HRAS");
+        salaryStructureComponent.setName("HRAS@20%");
+        salaryStructureComponent.setValue(20);
+
+        List<SalaryStructureComponent>salaryStructureComponents = new ArrayList<>();
+        salaryStructureComponents.add(salaryStructureComponent);
+
+        SalaryStructure salaryStructure1 = new SalaryStructure();
+        salaryStructure1.setId("4");
+        salaryStructure1.getSalaryStructureComponents(salaryStructureComponents);
+
+        boolean status = salaryStructureDao.create(salaryStructure1);
+        Assert.assertEquals(true,status);
+
+        SalaryStructure salaryStructure = salaryStructureDao.getById("4");
+        Assert.assertNotNull(salaryStructure);
 
 
-
+    }
 
 
 }
