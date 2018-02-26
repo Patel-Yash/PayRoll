@@ -135,8 +135,8 @@ public class SalaryStructureDaoTest
         SalaryStructureComponent salaryStructureComponent = new SalaryStructureComponent();
 
         salaryStructureComponent.setId("14");
-        salaryStructureComponent.setDisplayName("HRAS");
-        salaryStructureComponent.setName("HRAS@20%");
+        salaryStructureComponent.setDisplayName("HRA");
+        salaryStructureComponent.setName("HRA@20%");
         salaryStructureComponent.setValue(20);
 
         List<SalaryStructureComponent>salaryStructureComponents = new ArrayList<>();

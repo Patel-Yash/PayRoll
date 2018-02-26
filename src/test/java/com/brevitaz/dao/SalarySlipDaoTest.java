@@ -23,7 +23,7 @@ public class SalarySlipDaoTest
     public void createTest() throws IOException {
         SalarySlip salarySlip = new SalarySlip();
         salarySlip.setId("1");
-        salarySlip.setEid("1");
+        salarySlip.setEmployeeId("1");
         salarySlip.setVariablePay(60000);
 
         boolean status = salarySlipDao.create(salarySlip);
@@ -34,7 +34,7 @@ public class SalarySlipDaoTest
     public void getAllTest() throws IOException {
         SalarySlip salarySlip = new SalarySlip();
         salarySlip.setId("2");
-        salarySlip.setEid("2");
+        salarySlip.setEmployeeId("2");
         salarySlip.setVariablePay(30000);
 
         boolean status = salarySlipDao.create(salarySlip);
@@ -48,7 +48,7 @@ public class SalarySlipDaoTest
     public void updateTest() throws IOException {
         SalarySlip salarySlip = new SalarySlip();
         salarySlip.setId("3");
-        salarySlip.setEid("3");
+        salarySlip.setEmployeeId("3");
         salarySlip.setVariablePay(60000);
 
         boolean status = salarySlipDao.create(salarySlip);
@@ -63,7 +63,7 @@ public class SalarySlipDaoTest
     public void deleteTest() throws IOException {
         SalarySlip salarySlip = new SalarySlip();
         salarySlip.setId("4");
-        salarySlip.setEid("4");
+        salarySlip.setEmployeeId("4");
         salarySlip.setVariablePay(60000);
 
         boolean status = salarySlipDao.create(salarySlip);
@@ -77,7 +77,7 @@ public class SalarySlipDaoTest
     public void getByIdTest() throws IOException {
         SalarySlip salarySlip = new SalarySlip();
         salarySlip.setId("5");
-        salarySlip.setEid("5");
+        salarySlip.setEmployeeId("5");
         salarySlip.setVariablePay(6000);
 
         boolean status = salarySlipDao.create(salarySlip);

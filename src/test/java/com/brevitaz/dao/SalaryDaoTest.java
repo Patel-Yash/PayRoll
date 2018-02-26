@@ -23,8 +23,8 @@ public class SalaryDaoTest
     public void createTest() throws IOException {
         Salary salary = new Salary();
         salary.setId("1");
-        salary.setEid("1");
-        salary.setSsId("1");
+        salary.setEmployeeId("1");
+        salary.setSalaryStructureId("1");
         salary.setGrossSalary(1200000);
         salary.setVariablePay(60000);
         salary.setOtherAllowance(20000);
@@ -37,8 +37,8 @@ public class SalaryDaoTest
     public void getAllTest() throws IOException {
         Salary salary = new Salary();
         salary.setId("2");
-        salary.setEid("2");
-        salary.setSsId("2");
+        salary.setEmployeeId("2");
+        salary.setSalaryStructureId("2");
         salary.setGrossSalary(120000);
         salary.setVariablePay(6000);
         salary.setOtherAllowance(2000);
@@ -55,8 +55,8 @@ public class SalaryDaoTest
     public void updateTest() throws IOException {
         Salary salary = new Salary();
         salary.setId("3");
-        salary.setEid("3");
-        salary.setSsId("3");
+        salary.setEmployeeId("3");
+        salary.setSalaryStructureId("3");
         salary.setGrossSalary(600000);
         salary.setVariablePay(30000);
         salary.setOtherAllowance(100000);
@@ -73,8 +73,8 @@ public class SalaryDaoTest
     public void deleteTest() throws IOException {
         Salary salary = new Salary();
         salary.setId("4");
-        salary.setEid("4");
-        salary.setSsId("4");
+        salary.setEmployeeId("4");
+        salary.setSalaryStructureId("4");
         salary.setGrossSalary(1200000);
         salary.setVariablePay(60000);
         salary.setOtherAllowance(20000);
@@ -90,8 +90,8 @@ public class SalaryDaoTest
     public void getByIdTest() throws IOException {
         Salary salary = new Salary();
         salary.setId("5");
-        salary.setEid("5");
-        salary.setSsId("5");
+        salary.setEmployeeId("5");
+        salary.setSalaryStructureId("5");
         salary.setGrossSalary(300000);
         salary.setVariablePay(20000);
         salary.setOtherAllowance(3000);
