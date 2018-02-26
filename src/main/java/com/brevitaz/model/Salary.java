@@ -3,8 +3,8 @@ package com.brevitaz.model;
 public class Salary {
 
     private String id;
-    private String eid;
-    private String ssId;
+    private String employeeId;
+    private String salaryStructureId;
     private double grossSalary;
     private double variablePay;
     private double otherAllowance;
@@ -17,20 +17,20 @@ public class Salary {
         this.id = id;
     }
 
-    public String getEid() {
-        return eid;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEid(String eid) {
-        this.eid = eid;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public String getSsId() {
-        return ssId;
+    public String getSalaryStructureId() {
+        return salaryStructureId;
     }
 
-    public void setSsId(String ssId) {
-        this.ssId = ssId;
+    public void setSalaryStructureId(String salaryStructureId) {
+        this.salaryStructureId = salaryStructureId;
     }
 
     public double getGrossSalary() {
@@ -61,11 +61,12 @@ public class Salary {
     public String toString() {
         return "Salary{" +
                 "id='" + id + '\'' +
-                ", eid='" + eid + '\'' +
-                ", ssId='" + ssId + '\'' +
+                ", employeeId='" + employeeId + '\'' +
+                ", salaryStructureId='" + salaryStructureId + '\'' +
                 ", grossSalary=" + grossSalary +
                 ", variablePay=" + variablePay +
                 ", otherAllowance=" + otherAllowance +
                 '}';
     }
 }
+
