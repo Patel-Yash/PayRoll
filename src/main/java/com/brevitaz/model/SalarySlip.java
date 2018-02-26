@@ -6,11 +6,10 @@ import java.util.List;
 public class SalarySlip {
 
     private String id;
-    private String eid;
+    private String employeeId;
     private double variablePay;
 
     private List<SalaryDeductionComponent> salaryDeductionComponents = new ArrayList<>();
-
 
     public String getId() {
         return id;
@@ -20,12 +19,12 @@ public class SalarySlip {
         this.id = id;
     }
 
-    public String getEid() {
-        return eid;
+    public String getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEid(String eid) {
-        this.eid = eid;
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
     }
 
     public double getVariablePay() {
@@ -48,7 +47,7 @@ public class SalarySlip {
     public String toString() {
         return "SalarySlip{" +
                 "id='" + id + '\'' +
-                ", eid='" + eid + '\'' +
+                ", employeeId='" + employeeId + '\'' +
                 ", variablePay=" + variablePay +
                 ", salaryDeductionComponents=" + salaryDeductionComponents +
                 '}';
