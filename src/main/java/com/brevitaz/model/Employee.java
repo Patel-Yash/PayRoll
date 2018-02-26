@@ -11,7 +11,6 @@ public class Employee {
     private String designation;
     private String location;
 
-
     public String getId() {
         return id;
     }
@@ -36,12 +35,12 @@ public class Employee {
         this.department = department;
     }
 
-    public Date getDate() {
+    public Date getDateOfJoining() {
         return dateOfJoining;
     }
 
-    public void setDate(Date date) {
-        this.dateOfJoining = date;
+    public void setDateOfJoining(Date dateOfJoining) {
+        this.dateOfJoining = dateOfJoining;
     }
 
     public String getDesignation() {
@@ -60,14 +59,13 @@ public class Employee {
         this.location = location;
     }
 
-
     @Override
     public String toString() {
         return "Employee{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", department='" + department + '\'' +
-                ", date=" + dateOfJoining +
+                ", dateOfJoining=" + dateOfJoining +
                 ", designation='" + designation + '\'' +
                 ", location='" + location + '\'' +
                 '}';
