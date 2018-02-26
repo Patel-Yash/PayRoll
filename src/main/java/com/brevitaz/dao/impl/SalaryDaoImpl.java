@@ -41,7 +41,7 @@ public class SalaryDaoImpl implements SalaryDao
     public boolean create(Salary salary) throws IOException {
         IndexRequest request = new IndexRequest(
                 INDEX_NAME,
-                TYPE_NAME,""+salary.getEid()
+                TYPE_NAME,""+salary.getEmployeeId()
         );
 
         //ObjectMapper objectMapper = new ObjectMapper();
@@ -76,22 +76,22 @@ public class SalaryDaoImpl implements SalaryDao
     }
 
     @Override
-    public boolean update(Salary salary,String id) throws IOException {
+    public boolean update(Salary salary,String salaryId) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         UpdateRequest updateRequest = new UpdateRequest(
                 INDEX_NAME,TYPE_NAME,
-                id).doc(objectMapper.writeValueAsString(salary), XContentType.JSON);
+                salaryId).doc(objectMapper.writeValueAsString(salary), XContentType.JSON);
         UpdateResponse updateResponse = client.getClient().update(updateRequest);
         System.out.println("Update: "+updateResponse);
         return true;
     }
 
     @Override
-    public boolean delete(String id) throws IOException {
+    public boolean delete(String salaryId) throws IOException {
         DeleteRequest request = new DeleteRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                id);
+                salaryId);
 
         DeleteResponse response = client.getClient().delete(request);
 
@@ -102,11 +102,11 @@ public class SalaryDaoImpl implements SalaryDao
     }
 
     @Override
-    public Salary getById(String id) throws IOException {
+    public Salary getById(String salaryId) throws IOException {
         GetRequest getRequest = new GetRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                id);
+                salaryId);
 
         GetResponse getResponse = client.getClient().get(getRequest);
 

@@ -10,7 +10,7 @@ public interface SalaryDeductionComponentDao
 {
     public boolean create(SalaryDeductionComponent salaryDeductionComponent) throws IOException;
     public List<SalaryDeductionComponent> getAll() throws IOException;
-    public boolean update(SalaryDeductionComponent salaryDeductionComponent,String id) throws IOException;
-    public boolean delete(String id)throws IOException;
-    public SalaryDeductionComponent getById(String id)throws IOException;
+    public boolean update(SalaryDeductionComponent salaryDeductionComponent,String salaryDeductionComponentId) throws IOException;
+    public boolean delete(String salaryDeductionComponentId)throws IOException;
+    public SalaryDeductionComponent getById(String salaryDeductionComponentId)throws IOException;
 }
