@@ -7,7 +7,7 @@ public class Employee {
     private String id;
     private String name;
     private String department;
-    private Date date;
+    private Date dateOfJoining;
     private String designation;
     private String location;
 
@@ -37,11 +37,11 @@ public class Employee {
     }
 
     public Date getDate() {
-        return date;
+        return dateOfJoining;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.dateOfJoining = date;
     }
 
     public String getDesignation() {
@@ -67,7 +67,7 @@ public class Employee {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", department='" + department + '\'' +
-                ", date=" + date +
+                ", date=" + dateOfJoining +
                 ", designation='" + designation + '\'' +
                 ", location='" + location + '\'' +
                 '}';
