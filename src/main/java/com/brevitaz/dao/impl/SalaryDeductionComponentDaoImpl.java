@@ -74,22 +74,22 @@ public class SalaryDeductionComponentDaoImpl implements SalaryDeductionComponent
     }
 
     @Override
-    public boolean update(SalaryDeductionComponent salaryDeductionComponent,String id) throws IOException {
+    public boolean update(SalaryDeductionComponent salaryDeductionComponent,String salaryDeductionComponentId) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         UpdateRequest updateRequest = new UpdateRequest(
                 INDEX_NAME,TYPE_NAME,
-                id).doc(objectMapper.writeValueAsString(salaryDeductionComponent), XContentType.JSON);
+                salaryDeductionComponentId).doc(objectMapper.writeValueAsString(salaryDeductionComponent), XContentType.JSON);
         UpdateResponse updateResponse = client.getClient().update(updateRequest);
         System.out.println("Update: "+updateResponse);
         return true;
     }
 
     @Override
-    public boolean delete(String id) throws IOException {
+    public boolean delete(String salaryDeductionComponentId) throws IOException {
         DeleteRequest request = new DeleteRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                id);
+                salaryDeductionComponentId);
 
         DeleteResponse response = client.getClient().delete(request);
 
@@ -100,11 +100,11 @@ public class SalaryDeductionComponentDaoImpl implements SalaryDeductionComponent
     }
 
     @Override
-    public SalaryDeductionComponent getById(String id) throws IOException {
+    public SalaryDeductionComponent getById(String salaryDeductionComponentId) throws IOException {
         GetRequest getRequest = new GetRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                id);
+                salaryDeductionComponentId);
 
         GetResponse getResponse = client.getClient().get(getRequest);
 
