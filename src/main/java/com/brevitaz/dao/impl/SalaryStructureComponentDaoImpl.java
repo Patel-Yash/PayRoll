@@ -42,7 +42,7 @@ public class SalaryStructureComponentDaoImpl implements SalaryStructureComponent
     public boolean create(SalaryStructureComponent salaryStructureComponent) throws IOException {
         IndexRequest request = new IndexRequest(
                 INDEX_NAME,
-                TYPE_NAME,""+salaryStructureComponent.getId()
+                TYPE_NAME,salaryStructureComponent.getId()
         );
 
         //ObjectMapper objectMapper = new ObjectMapper();
