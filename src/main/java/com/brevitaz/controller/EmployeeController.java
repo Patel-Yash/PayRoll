@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 public class EmployeeController {
 
     @Autowired
@@ -30,21 +30,21 @@ public class EmployeeController {
 
     }
 
-    @RequestMapping(value = "/{employee-id}", method = RequestMethod.PUT)
-    public boolean update(@RequestBody Employee employee, @PathVariable String employeeId) throws IOException {
-        return employeeDao.update(employee,employeeId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public boolean update(@RequestBody Employee employee, @PathVariable String id) throws IOException {
+        return employeeDao.update(employee,id);
 
     }
 
-    @RequestMapping(value = "/{employee-id}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String employeeId) throws IOException {
-        return employeeDao.delete(employeeId);
+    @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
+    public boolean delete(@PathVariable String id) throws IOException {
+        return employeeDao.delete(id);
 
     }
 
-    @RequestMapping(value = "/{employee-id}", method = {RequestMethod.GET})
-    public Employee getById(@PathVariable String employeeId) throws IOException {
-         return employeeDao.getById(employeeId);
+    @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
+    public Employee getById(@PathVariable String id) throws IOException {
+         return employeeDao.getById(id);
 
     }
 }
