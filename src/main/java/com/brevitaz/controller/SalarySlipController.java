@@ -28,21 +28,21 @@ public class SalarySlipController
 
     }
 
-    @RequestMapping(value = "/{employeeId}", method = RequestMethod.PUT)
-    public boolean update(@RequestBody SalarySlip salarySlip, @PathVariable String employeeId) throws IOException {
-        return salarySlipDao.update(salarySlip,employeeId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public boolean update(@RequestBody SalarySlip salarySlip, @PathVariable String id) throws IOException {
+        return salarySlipDao.update(salarySlip,id);
 
     }
 
-    @RequestMapping(value = "/{employeeId}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String employeeId) throws IOException {
-        return salarySlipDao.delete(employeeId);
+    @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
+    public boolean delete(@PathVariable String id) throws IOException {
+        return salarySlipDao.delete(id);
 
     }
 
-    @RequestMapping(value = "/{employeeId}", method = {RequestMethod.GET})
-    public SalarySlip getById(@PathVariable String employeeId) throws IOException {
-        return salarySlipDao.getById(employeeId);
+    @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
+    public SalarySlip getById(@PathVariable String id) throws IOException {
+        return salarySlipDao.getById(id);
 
     }
 }

@@ -81,22 +81,22 @@ public class SalarySlipDaoImpl implements SalarySlipDao
     }
 
     @Override
-    public boolean update(SalarySlip salarySlip,String employeeId) throws IOException {
+    public boolean update(SalarySlip salarySlip,String id) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         UpdateRequest updateRequest = new UpdateRequest(
                 indexName,TYPE_NAME,
-                employeeId).doc(objectMapper.writeValueAsString(salarySlip), XContentType.JSON);
+                id).doc(objectMapper.writeValueAsString(salarySlip), XContentType.JSON);
         UpdateResponse updateResponse = config.getClient().update(updateRequest);
         System.out.println("Update: "+updateResponse);
         return true;
     }
 
     @Override
-    public boolean delete(String employeeId) throws IOException {
+    public boolean delete(String id) throws IOException {
         DeleteRequest request = new DeleteRequest(
                 indexName,
                 TYPE_NAME,
-                employeeId);
+                id);
 
         DeleteResponse response = config.getClient().delete(request);
 
@@ -107,11 +107,11 @@ public class SalarySlipDaoImpl implements SalarySlipDao
     }
 
     @Override
-    public SalarySlip getById(String employeeId) throws IOException {
+    public SalarySlip getById(String id) throws IOException {
         GetRequest getRequest = new GetRequest(
                 indexName,
                 TYPE_NAME,
-                employeeId);
+                id);
 
         GetResponse getResponse = config.getClient().get(getRequest);
 
