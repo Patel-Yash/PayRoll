@@ -32,7 +32,6 @@ public class SalarySlipDaoImpl implements SalarySlipDao
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-
     @Autowired
     ElasticConfig client;
 
@@ -40,7 +39,7 @@ public class SalarySlipDaoImpl implements SalarySlipDao
     public boolean create(SalarySlip salarySlip) throws IOException {
         IndexRequest request = new IndexRequest(
                 INDEX_NAME,
-                TYPE_NAME,""+salarySlip.getEid()
+                TYPE_NAME,salarySlip.getEmployeeId()
         );
 
         //ObjectMapper objectMapper = new ObjectMapper();
@@ -75,22 +74,22 @@ public class SalarySlipDaoImpl implements SalarySlipDao
     }
 
     @Override
-    public boolean update(SalarySlip salarySlip,String eid) throws IOException {
+    public boolean update(SalarySlip salarySlip,String employeeId) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         UpdateRequest updateRequest = new UpdateRequest(
                 INDEX_NAME,TYPE_NAME,
-                eid).doc(objectMapper.writeValueAsString(salarySlip), XContentType.JSON);
+                employeeId).doc(objectMapper.writeValueAsString(salarySlip), XContentType.JSON);
         UpdateResponse updateResponse = client.getClient().update(updateRequest);
         System.out.println("Update: "+updateResponse);
         return true;
     }
 
     @Override
-    public boolean delete(String eid) throws IOException {
+    public boolean delete(String employeeId) throws IOException {
         DeleteRequest request = new DeleteRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                eid);
+                employeeId);
 
         DeleteResponse response = client.getClient().delete(request);
 
@@ -101,11 +100,11 @@ public class SalarySlipDaoImpl implements SalarySlipDao
     }
 
     @Override
-    public SalarySlip getById(String eid) throws IOException {
+    public SalarySlip getById(String employeeId) throws IOException {
         GetRequest getRequest = new GetRequest(
                 INDEX_NAME,
                 TYPE_NAME,
-                eid);
+                employeeId);
 
         GetResponse getResponse = client.getClient().get(getRequest);
 
