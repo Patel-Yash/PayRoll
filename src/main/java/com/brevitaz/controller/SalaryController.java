@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/salary")
+@RequestMapping("/salaries")
 public class SalaryController {
 
     @Autowired
@@ -30,21 +30,21 @@ public class SalaryController {
 
     }
 
-    @RequestMapping(value = "/{salary-id}", method = RequestMethod.PUT)
-    public boolean update(@RequestBody Salary salary, @PathVariable String salaryId) throws IOException {
-        return salaryDao.update(salary,salaryId);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public boolean update(@RequestBody Salary salary, @PathVariable String id) throws IOException {
+        return salaryDao.update(salary,id);
 
     }
 
-    @RequestMapping(value = "/{salary-id}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String salaryId) throws IOException {
-        return salaryDao.delete(salaryId);
+    @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
+    public boolean delete(@PathVariable String id) throws IOException {
+        return salaryDao.delete(id);
 
     }
 
-    @RequestMapping(value = "/{salary-id}", method = {RequestMethod.GET})
-    public Salary getById(@PathVariable String salaryId) throws IOException {
-       return salaryDao.getById(salaryId);
+    @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
+    public Salary getById(@PathVariable String id) throws IOException {
+       return salaryDao.getById(id);
 
     }
 }

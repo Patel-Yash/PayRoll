@@ -3,10 +3,15 @@ package com.brevitaz.config;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ElasticConfig {
+
+   /* @Value("${Host-Name}")
+    String hostName;
+
 
 
     public RestHighLevelClient getClient() {
@@ -15,7 +20,7 @@ public class ElasticConfig {
         {
             client = new RestHighLevelClient
                     (RestClient.builder(
-                            new HttpHost("localhost", 9200, "http")));
+                            new HttpHost(hostName, 9200, "http")));
             return client;
         }
         else
@@ -31,5 +36,5 @@ public class ElasticConfig {
 
     private RestHighLevelClient client;
 
-
+*/
 }

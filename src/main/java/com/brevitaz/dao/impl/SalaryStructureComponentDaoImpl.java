@@ -1,5 +1,6 @@
 package com.brevitaz.dao.impl;
 
+import com.brevitaz.config.Config;
 import com.brevitaz.config.ElasticConfig;
 import com.brevitaz.dao.SalaryStructureComponentDao;
 import com.brevitaz.model.Employee;
@@ -19,6 +20,7 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -29,28 +31,30 @@ import java.util.List;
 public class SalaryStructureComponentDaoImpl implements SalaryStructureComponentDao
 {
 
-    private final String INDEX_NAME = "salarystructurecomponent";
+    //private final String INDEX_NAME = "salarystructurecomponent";
     private final String TYPE_NAME = "doc";
 
-    ObjectMapper objectMapper = new ObjectMapper();
-
+    @Value("${SalaryStructureComponent-Index-Name}")
+    String indexName;
 
     @Autowired
-    ElasticConfig client;
+    Config config;
 
+    /*@Autowired
+    ElasticConfig client;
+*/
     @Override
     public boolean create(SalaryStructureComponent salaryStructureComponent) throws IOException {
         IndexRequest request = new IndexRequest(
-                INDEX_NAME,
+                indexName,
                 TYPE_NAME,salaryStructureComponent.getId()
         );
 
-        //ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(salaryStructureComponent);
+        String json = config.getObjectMapper().writeValueAsString(salaryStructureComponent);
 
         request.source(json, XContentType.JSON);
 
-        IndexResponse indexResponse= client.getClient().index(request);
+        IndexResponse indexResponse= config.getClient().index(request);
 
         System.out.println(indexResponse);
 
@@ -60,16 +64,16 @@ public class SalaryStructureComponentDaoImpl implements SalaryStructureComponent
     @Override
     public List<SalaryStructureComponent> getAll() throws IOException {
         List<SalaryStructureComponent > salaryStructureComponents = new ArrayList<>();
-        SearchRequest request = new SearchRequest(INDEX_NAME);
+        SearchRequest request = new SearchRequest(indexName);
         request.types(TYPE_NAME);
-        SearchResponse response = client.getClient().search(request);
+        SearchResponse response = config.getClient().search(request);
         SearchHit[] hits = response.getHits().getHits();
 
         SalaryStructureComponent salaryStructureComponent;
 
         for (SearchHit hit : hits)
         {
-            salaryStructureComponent = objectMapper.readValue(hit.getSourceAsString(), SalaryStructureComponent.class);
+            salaryStructureComponent = config.getObjectMapper().readValue(hit.getSourceAsString(), SalaryStructureComponent.class);
             salaryStructureComponents.add(salaryStructureComponent);
         }
         return salaryStructureComponents;
@@ -80,9 +84,9 @@ public class SalaryStructureComponentDaoImpl implements SalaryStructureComponent
     public boolean update(SalaryStructureComponent salaryStructureComponent,String id) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         UpdateRequest updateRequest = new UpdateRequest(
-                INDEX_NAME,TYPE_NAME,
+                indexName,TYPE_NAME,
                 id).doc(objectMapper.writeValueAsString(salaryStructureComponent), XContentType.JSON);
-        UpdateResponse updateResponse = client.getClient().update(updateRequest);
+        UpdateResponse updateResponse = config.getClient().update(updateRequest);
         System.out.println("Update: "+updateResponse);
         return true;
     }
@@ -90,11 +94,11 @@ public class SalaryStructureComponentDaoImpl implements SalaryStructureComponent
     @Override
     public boolean delete(String id) throws IOException {
         DeleteRequest request = new DeleteRequest(
-                INDEX_NAME,
+                indexName,
                 TYPE_NAME,
                 id);
 
-        DeleteResponse response = client.getClient().delete(request);
+        DeleteResponse response = config.getClient().delete(request);
 
         System.out.println(response.status());
 
@@ -105,15 +109,13 @@ public class SalaryStructureComponentDaoImpl implements SalaryStructureComponent
     @Override
     public SalaryStructureComponent getById(String id) throws IOException {
         GetRequest getRequest = new GetRequest(
-                INDEX_NAME,
+                indexName,
                 TYPE_NAME,
                 id);
 
-        GetResponse getResponse = client.getClient().get(getRequest);
+        GetResponse getResponse = config.getClient().get(getRequest);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        SalaryStructureComponent salaryStructureComponent  = objectMapper.readValue(getResponse.getSourceAsString(),SalaryStructureComponent.class);
+        SalaryStructureComponent salaryStructureComponent  = config.getObjectMapper().readValue(getResponse.getSourceAsString(),SalaryStructureComponent.class);
 
         System.out.println(salaryStructureComponent);
         return salaryStructureComponent;

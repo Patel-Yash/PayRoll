@@ -1,5 +1,6 @@
 package com.brevitaz.dao.impl;
 
+import com.brevitaz.config.Config;
 import com.brevitaz.config.ElasticConfig;
 import com.brevitaz.dao.SalaryDao;
 import com.brevitaz.model.Employee;
@@ -19,6 +20,7 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -28,28 +30,33 @@ import java.util.List;
 @Repository
 public class SalaryDaoImpl implements SalaryDao
 {
-    private final String INDEX_NAME = "salary";
+    //private final String INDEX_NAME = "salary";
     private final String TYPE_NAME = "doc";
 
-    ObjectMapper objectMapper = new ObjectMapper();
 
+    @Value("${Salary-Index-Name}")
+    String indexName;
 
     @Autowired
+    Config config;
+
+/*
+    @Autowired
     ElasticConfig client;
+*/
 
     @Override
     public boolean create(Salary salary) throws IOException {
         IndexRequest request = new IndexRequest(
-                INDEX_NAME,
+                indexName,
                 TYPE_NAME,""+salary.getEmployeeId()
         );
 
-        //ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(salary);
+        String json = config.getObjectMapper().writeValueAsString(salary);
 
         request.source(json, XContentType.JSON);
 
-        IndexResponse indexResponse= client.getClient().index(request);
+        IndexResponse indexResponse= config.getClient().index(request);
 
         System.out.println(indexResponse);
 
@@ -59,16 +66,16 @@ public class SalaryDaoImpl implements SalaryDao
     @Override
     public List<Salary> getAll() throws IOException {
         List<Salary> salaries = new ArrayList<>();
-        SearchRequest request = new SearchRequest(INDEX_NAME);
+        SearchRequest request = new SearchRequest(indexName);
         request.types(TYPE_NAME);
-        SearchResponse response = client.getClient().search(request);
+        SearchResponse response = config.getClient().search(request);
         SearchHit[] hits = response.getHits().getHits();
 
         Salary salary;
 
         for (SearchHit hit : hits)
         {
-            salary = objectMapper.readValue(hit.getSourceAsString(), Salary.class);
+            salary = config.getObjectMapper().readValue(hit.getSourceAsString(), Salary.class);
             salaries.add(salary);
         }
         return salaries;
@@ -76,24 +83,24 @@ public class SalaryDaoImpl implements SalaryDao
     }
 
     @Override
-    public boolean update(Salary salary,String salaryId) throws IOException {
+    public boolean update(Salary salary,String id) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         UpdateRequest updateRequest = new UpdateRequest(
-                INDEX_NAME,TYPE_NAME,
-                salaryId).doc(objectMapper.writeValueAsString(salary), XContentType.JSON);
-        UpdateResponse updateResponse = client.getClient().update(updateRequest);
+                indexName,TYPE_NAME,
+                id).doc(objectMapper.writeValueAsString(salary), XContentType.JSON);
+        UpdateResponse updateResponse = config.getClient().update(updateRequest);
         System.out.println("Update: "+updateResponse);
         return true;
     }
 
     @Override
-    public boolean delete(String salaryId) throws IOException {
+    public boolean delete(String id) throws IOException {
         DeleteRequest request = new DeleteRequest(
-                INDEX_NAME,
+                indexName,
                 TYPE_NAME,
-                salaryId);
+                id);
 
-        DeleteResponse response = client.getClient().delete(request);
+        DeleteResponse response = config.getClient().delete(request);
 
         System.out.println(response.status());
 
@@ -102,17 +109,16 @@ public class SalaryDaoImpl implements SalaryDao
     }
 
     @Override
-    public Salary getById(String salaryId) throws IOException {
+    public Salary getById(String id) throws IOException {
         GetRequest getRequest = new GetRequest(
-                INDEX_NAME,
+                indexName,
                 TYPE_NAME,
-                salaryId);
+                id);
 
-        GetResponse getResponse = client.getClient().get(getRequest);
+        GetResponse getResponse = config.getClient().get(getRequest);
 
-        ObjectMapper objectMapper = new ObjectMapper();
 
-        Salary salary  = objectMapper.readValue(getResponse.getSourceAsString(),Salary.class);
+        Salary salary  = config.getObjectMapper().readValue(getResponse.getSourceAsString(),Salary.class);
 
         System.out.println(salary);
         return salary;

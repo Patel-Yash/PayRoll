@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/salary-structure-component")
+@RequestMapping("/salary-structure-components")
 public class SalaryStructureComponentController {
 
 

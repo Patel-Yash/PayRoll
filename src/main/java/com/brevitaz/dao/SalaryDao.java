@@ -9,7 +9,7 @@ public interface SalaryDao
 {
     public boolean create(Salary salary) throws IOException;
     public List<Salary> getAll() throws IOException;
-    public boolean update(Salary salary,String salaryId) throws IOException;
-    public boolean delete(String salaryId)throws IOException;
-    public Salary getById(String salaryId)throws IOException;
+    public boolean update(Salary salary,String id) throws IOException;
+    public boolean delete(String id)throws IOException;
+    public Salary getById(String id)throws IOException;
 }

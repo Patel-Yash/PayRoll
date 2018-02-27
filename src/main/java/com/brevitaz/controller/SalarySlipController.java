@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/salary-slip")
+@RequestMapping("/salary-slips")
 public class SalarySlipController
 {
 
@@ -40,7 +40,7 @@ public class SalarySlipController
 
     }
 
-    @RequestMapping(value = "/{eid}", method = {RequestMethod.GET})
+    @RequestMapping(value = "/{employeeId}", method = {RequestMethod.GET})
     public SalarySlip getById(@PathVariable String employeeId) throws IOException {
         return salarySlipDao.getById(employeeId);
 

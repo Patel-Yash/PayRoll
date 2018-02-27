@@ -1,5 +1,6 @@
 package com.brevitaz.dao.impl;
 
+import com.brevitaz.config.Config;
 import com.brevitaz.config.ElasticConfig;
 import com.brevitaz.dao.SalaryDeductionComponentDao;
 import com.brevitaz.model.SalaryDeductionComponent;
@@ -18,6 +19,7 @@ import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
@@ -27,28 +29,32 @@ import java.util.List;
 @Repository
 public class SalaryDeductionComponentDaoImpl implements SalaryDeductionComponentDao
 {
-    private final String INDEX_NAME = "salary-deduction-component";
+   // private final String INDEX_NAME = "salary-deduction-component";
     private final String TYPE_NAME = "doc";
 
-    ObjectMapper objectMapper = new ObjectMapper();
-
+    @Value("${SalaryDeductionComponent-Index-Name}")
+    String indexName;
 
     @Autowired
+    Config config;
+
+/*
+    @Autowired
     ElasticConfig client;
+*/
 
     @Override
     public boolean create(SalaryDeductionComponent salaryDeductionComponent) throws IOException {
         IndexRequest request = new IndexRequest(
-                INDEX_NAME,
+                indexName,
                 TYPE_NAME,""+salaryDeductionComponent.getId()
         );
 
-        //ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(salaryDeductionComponent);
+        String json = config.getObjectMapper().writeValueAsString(salaryDeductionComponent);
 
         request.source(json, XContentType.JSON);
 
-        IndexResponse indexResponse= client.getClient().index(request);
+        IndexResponse indexResponse= config.getClient().index(request);
 
         System.out.println(indexResponse);
 
@@ -58,15 +64,15 @@ public class SalaryDeductionComponentDaoImpl implements SalaryDeductionComponent
     @Override
     public List<SalaryDeductionComponent> getAll() throws IOException {
         List<SalaryDeductionComponent > salaryDeductionComponents = new ArrayList<>();
-        SearchRequest request = new SearchRequest(INDEX_NAME);
+        SearchRequest request = new SearchRequest(indexName);
         request.types(TYPE_NAME);
-        SearchResponse response = client.getClient().search(request);
+        SearchResponse response = config.getClient().search(request);
         SearchHit[] hits = response.getHits().getHits();
 
         SalaryDeductionComponent salaryDeductionComponent;
         for (SearchHit hit : hits)
         {
-            salaryDeductionComponent = objectMapper.readValue(hit.getSourceAsString(), SalaryDeductionComponent.class);
+            salaryDeductionComponent = config.getObjectMapper().readValue(hit.getSourceAsString(), SalaryDeductionComponent.class);
             salaryDeductionComponents.add(salaryDeductionComponent);
         }
         return salaryDeductionComponents;
@@ -74,24 +80,24 @@ public class SalaryDeductionComponentDaoImpl implements SalaryDeductionComponent
     }
 
     @Override
-    public boolean update(SalaryDeductionComponent salaryDeductionComponent,String salaryDeductionComponentId) throws IOException {
+    public boolean update(SalaryDeductionComponent salaryDeductionComponent,String id) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
         UpdateRequest updateRequest = new UpdateRequest(
-                INDEX_NAME,TYPE_NAME,
-                salaryDeductionComponentId).doc(objectMapper.writeValueAsString(salaryDeductionComponent), XContentType.JSON);
-        UpdateResponse updateResponse = client.getClient().update(updateRequest);
+                indexName,TYPE_NAME,
+                id).doc(objectMapper.writeValueAsString(salaryDeductionComponent), XContentType.JSON);
+        UpdateResponse updateResponse = config.getClient().update(updateRequest);
         System.out.println("Update: "+updateResponse);
         return true;
     }
 
     @Override
-    public boolean delete(String salaryDeductionComponentId) throws IOException {
+    public boolean delete(String id) throws IOException {
         DeleteRequest request = new DeleteRequest(
-                INDEX_NAME,
+                indexName,
                 TYPE_NAME,
-                salaryDeductionComponentId);
+                id);
 
-        DeleteResponse response = client.getClient().delete(request);
+        DeleteResponse response = config.getClient().delete(request);
 
         System.out.println(response.status());
 
@@ -100,17 +106,15 @@ public class SalaryDeductionComponentDaoImpl implements SalaryDeductionComponent
     }
 
     @Override
-    public SalaryDeductionComponent getById(String salaryDeductionComponentId) throws IOException {
+    public SalaryDeductionComponent getById(String id) throws IOException {
         GetRequest getRequest = new GetRequest(
-                INDEX_NAME,
+                indexName,
                 TYPE_NAME,
-                salaryDeductionComponentId);
+                id);
 
-        GetResponse getResponse = client.getClient().get(getRequest);
+        GetResponse getResponse = config.getClient().get(getRequest);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        SalaryDeductionComponent salaryDeductionComponent  = objectMapper.readValue(getResponse.getSourceAsString(),SalaryDeductionComponent.class);
+        SalaryDeductionComponent salaryDeductionComponent  = config.getObjectMapper().readValue(getResponse.getSourceAsString(),SalaryDeductionComponent.class);
 
         System.out.println(salaryDeductionComponent);
         return salaryDeductionComponent;

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/salary-structure")
+@RequestMapping("/salary-structures")
 public class SalaryStructureController {
 
     @Autowired
