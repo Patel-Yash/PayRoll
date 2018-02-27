@@ -19,7 +19,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class SalaryStructureDaoTest
-{
+{/*
     @Autowired
     SalaryStructureDao salaryStructureDao;
 
@@ -155,5 +155,5 @@ public class SalaryStructureDaoTest
 
     }
 
-
+*/
 }

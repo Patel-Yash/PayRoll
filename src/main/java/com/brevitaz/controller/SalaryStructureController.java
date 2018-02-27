@@ -22,7 +22,7 @@ public class SalaryStructureController {
         return salaryStructureDao.create(salaryStructure);
     }
 
-    @RequestMapping(value = "{/id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public SalaryStructure getById( @PathVariable String id) throws IOException {
         return salaryStructureDao.getById(id);
     }
