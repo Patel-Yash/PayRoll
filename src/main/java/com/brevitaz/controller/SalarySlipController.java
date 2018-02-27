@@ -28,13 +28,13 @@ public class SalarySlipController
 
     }
 
-    @RequestMapping(value = "/{employee-id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{employeeId}", method = RequestMethod.PUT)
     public boolean update(@RequestBody SalarySlip salarySlip, @PathVariable String employeeId) throws IOException {
         return salarySlipDao.update(salarySlip,employeeId);
 
     }
 
-    @RequestMapping(value = "/{employee-id}", method = {RequestMethod.DELETE})
+    @RequestMapping(value = "/{employeeId}", method = {RequestMethod.DELETE})
     public boolean delete(@PathVariable String employeeId) throws IOException {
         return salarySlipDao.delete(employeeId);
 
