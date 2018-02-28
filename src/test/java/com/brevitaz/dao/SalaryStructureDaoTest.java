@@ -23,7 +23,6 @@ public class SalaryStructureDaoTest
     @Autowired
     SalaryStructureDao salaryStructureDao;
 
-
     @Test
     public void createTest() throws IOException {
         SalaryStructureComponent salaryStructureComponent = new SalaryStructureComponent();

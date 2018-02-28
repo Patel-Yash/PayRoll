@@ -20,32 +20,32 @@ public class EmployeeController {
     EmployeeDao employeeDao;
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody Employee employee) throws IOException {
+    public boolean create(@RequestBody Employee employee) {
         return employeeDao.create(employee);
 
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Employee> getAll() throws IOException {
+    public List<Employee> getAll(){
          return employeeDao.getAll();
 
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public boolean update(@RequestBody Employee employee, @PathVariable String id) throws IOException {
+    public boolean update(@RequestBody Employee employee, @PathVariable String id) {
         return employeeDao.update(employee,id);
 
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String id) throws IOException {
+    public boolean delete(@PathVariable String id) {
         return employeeDao.delete(id);
 
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public Employee getById(@PathVariable String id) throws IOException {
+    public Employee getById(@PathVariable String id) {
          return employeeDao.getById(id);
 
     }
