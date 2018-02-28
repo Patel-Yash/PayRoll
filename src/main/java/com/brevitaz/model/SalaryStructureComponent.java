@@ -9,7 +9,6 @@ public class SalaryStructureComponent {
     private String displayName;
     private String name;
     private Type type;
-    private enum Type {PERCENTAGE,FIXED_VALUE;}
     private double value;
 
     public Type getType() {
