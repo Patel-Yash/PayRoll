@@ -6,7 +6,7 @@ import java.util.List;
 public class SalaryStructure {
 
     private String id;
-    private List<SalaryStructureComponent> salaryStructureComponents = new ArrayList<>();
+    private List<SalaryStructureComponent> salaryStructureComponents;
 
     public String getId() {
         return id;
