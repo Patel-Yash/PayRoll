@@ -1,6 +1,5 @@
 package com.brevitaz.dao;
 
-
 import com.brevitaz.model.Employee;
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,99 +7,95 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.io.IOException;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class EmployeeDaoTest
-{
+public class EmployeeDaoTest {
 
     @Autowired
     EmployeeDao employeeDao;
 
     @Test
-    public void createTest() throws IOException {
+    public void createTest() {
         Employee employee = new Employee();
-        employee.setId("1");
-        employee.setName("Arpy");/*
-        employee.setDate(2018-02-22);*/
-        employee.setDepartment("Developing");
-        employee.setDesignation("Developer");
-        employee.setLocation("Ahmedabad");
+        employee.setId("11");
+        employee.setName("Yash");
+        employee.setDepartment("Java");
+        employeeDao.create(employee);
 
-        boolean status = employeeDao.create(employee);
-        Assert.assertEquals(true,status);
+        Employee employee1 = employeeDao.getById("11");
+        Assert.assertEquals(employee.getName(),employee1.getName());
+        employeeDao.delete("11");
     }
 
     @Test
-    public void getAllTest() throws IOException {
-        Employee employee = new Employee();
-        employee.setId("3");
-        employee.setName("dffbf");
-        employee.setDepartment("ndfhfjd");
+    public void getAllTest() {
+        Employee employee1 = new Employee();
+        employee1.setId("11");
+        employee1.setName("Yash");
+        employee1.setDepartment("Java");
+        employeeDao.create(employee1);
 
-        boolean status = employeeDao.create(employee);
-        Assert.assertEquals(true,status);
+        Employee employee2 = new Employee();
+        employee1.setId("11");
+        employee1.setName("Yash");
+        employee1.setDepartment("Java");
+        employeeDao.create(employee1);
+
+        Employee employee3 = new Employee();
+        employee1.setId("11");
+        employee1.setName("Yash");
+        employee1.setDepartment("Java");
+        employeeDao.create(employee1);
 
         List<Employee> employees = employeeDao.getAll();
-        int size = employees.size();
-        Assert.assertEquals(4,size);
+        Assert.assertEquals(3,employees);
+        employeeDao.delete("11");
     }
 
     @Test
-    public void getTest() throws IOException {
+    public void getByIdTest() {
         Employee employee = new Employee();
-        employee.setId("3");
-        employee.setName("Pr");/*
-        employee.setDate(2018-02-22);*/
-        employee.setDepartment("Developing");
-        employee.setDesignation("Developer");
-        employee.setLocation("Ahmedabad");
+        employee.setId("11");
+        employee.setName("Yash");
+        employee.setDepartment("Java");
+        employeeDao.create(employee);
 
-        boolean status = employeeDao.create(employee);
-        Assert.assertEquals(true,status);
-
-        employee = employeeDao.getById("3");
-        Assert.assertNotNull(employee);
+        Employee employee1 = employeeDao.getById("11");
+        Assert.assertEquals(employee.getName(),employee1.getName());
+        //employeeDao.delete("11");
     }
 
     @Test
-    public void updateTest() throws IOException {
+    public void update() {
         Employee employee = new Employee();
-        employee.setId("4");
-        employee.setName("Anushka");/*
-        employee.setDate(2018-02-22);*/
-        employee.setDepartment("Developing");
-        employee.setDesignation("Developer");
-        employee.setLocation("Ahmedabad");
+        employee.setId("11");
+        employee.setName("Yash");
+        employee.setDepartment("Java");
+        employeeDao.create(employee);
 
-        boolean status = employeeDao.create(employee);
-        Assert.assertEquals(true,status);
+        Employee employee1 = new Employee();
+        employee1.setName("Arpy");
+        employeeDao.update(employee1,"11");
+        Employee employee3 = employeeDao.getById("11");
+        Assert.assertEquals(employee1.getName(),employee3.getName());
+        employeeDao.delete("11");
 
-        employee.setName("Anoushka");
-
-        boolean status1 = employeeDao.update(employee,"4");
-        Assert.assertEquals(true,status1);
     }
 
     @Test
-    public void deleteTest() throws IOException {
-
+    public void delete() {
         Employee employee = new Employee();
-        employee.setId("5");
-        employee.setName("Adhi");/*
-        employee.setDate(2018-02-22);*/
-        employee.setDepartment("Developing");
-        employee.setDesignation("Developer");
-        employee.setLocation("Ahmedabad");
+        employee.setId("11");
+        employee.setName("Yash");
+        employee.setDepartment("Java");
+        employeeDao.create(employee);
 
-        boolean status = employeeDao.create(employee);
-        Assert.assertEquals(true,status);
+        employeeDao.delete("11");
+        Employee employee1 = employeeDao.getById("11");
 
-        boolean status1=employeeDao.delete("5");
-        Assert.assertEquals(true,status1);
+        Assert.assertNull(employee1);
     }
-
 }

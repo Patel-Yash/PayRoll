@@ -19,10 +19,9 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class SalaryStructureDaoTest
-{/*
+{
     @Autowired
     SalaryStructureDao salaryStructureDao;
-
 
     @Test
     public void createTest() throws IOException {
@@ -38,7 +37,7 @@ public class SalaryStructureDaoTest
 
         SalaryStructure salaryStructure1 = new SalaryStructure();
         salaryStructure1.setId("1");
-        salaryStructure1.getSalaryStructureComponents(salaryStructureComponents);
+        salaryStructure1.setSalaryStructureComponents(salaryStructureComponents);
 
         boolean status = salaryStructureDao.create(salaryStructure1);
         Assert.assertEquals(true,status);
@@ -58,7 +57,7 @@ public class SalaryStructureDaoTest
 
         SalaryStructure salaryStructure1 = new SalaryStructure();
         salaryStructure1.setId("2");
-        salaryStructure1.getSalaryStructureComponents(salaryStructureComponents);
+        salaryStructure1.setSalaryStructureComponents(salaryStructureComponents);
 
         boolean status = salaryStructureDao.create(salaryStructure1);
         Assert.assertEquals(true,status);
@@ -84,7 +83,7 @@ public class SalaryStructureDaoTest
 
         SalaryStructure salaryStructure1 = new SalaryStructure();
         salaryStructure1.setId("3");
-        salaryStructure1.getSalaryStructureComponents(salaryStructureComponents);
+        salaryStructure1.setSalaryStructureComponents(salaryStructureComponents);
 
         boolean status = salaryStructureDao.create(salaryStructure1);
         Assert.assertEquals(true,status);
@@ -120,7 +119,7 @@ public class SalaryStructureDaoTest
 
         SalaryStructure salaryStructure1 = new SalaryStructure();
         salaryStructure1.setId("4");
-        salaryStructure1.getSalaryStructureComponents(salaryStructureComponents);
+        salaryStructure1.setSalaryStructureComponents(salaryStructureComponents);
 
         boolean status = salaryStructureDao.create(salaryStructure1);
         Assert.assertEquals(true,status);
@@ -144,7 +143,7 @@ public class SalaryStructureDaoTest
 
         SalaryStructure salaryStructure1 = new SalaryStructure();
         salaryStructure1.setId("4");
-        salaryStructure1.getSalaryStructureComponents(salaryStructureComponents);
+        salaryStructure1.setSalaryStructureComponents(salaryStructureComponents);
 
         boolean status = salaryStructureDao.create(salaryStructure1);
         Assert.assertEquals(true,status);
@@ -155,5 +154,4 @@ public class SalaryStructureDaoTest
 
     }
 
-*/
 }
