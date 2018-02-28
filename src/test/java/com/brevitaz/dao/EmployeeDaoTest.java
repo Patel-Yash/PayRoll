@@ -65,7 +65,7 @@ public class EmployeeDaoTest {
 
         Employee employee1 = employeeDao.getById("11");
         Assert.assertEquals(employee.getName(),employee1.getName());
-        //employeeDao.delete("11");
+        employeeDao.delete("11");
     }
 
     @Test
