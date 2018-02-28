@@ -18,29 +18,29 @@ public class SalaryStructureController {
     SalaryStructureDao salaryStructureDao;
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody SalaryStructure salaryStructure) throws IOException {
+    public boolean create(@RequestBody SalaryStructure salaryStructure)  {
         return salaryStructureDao.create(salaryStructure);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public SalaryStructure getById( @PathVariable String id) throws IOException {
+    public SalaryStructure getById( @PathVariable String id) {
         return salaryStructureDao.getById(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public boolean update(@RequestBody SalaryStructure salaryStructure, @PathVariable String id) throws IOException {
+    public boolean update(@RequestBody SalaryStructure salaryStructure, @PathVariable String id) {
         return salaryStructureDao.update(salaryStructure,id);
 
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String id) throws IOException {
+    public boolean delete(@PathVariable String id) {
         return salaryStructureDao.delete(id);
 
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<SalaryStructure> getAll() throws IOException {
+    public List<SalaryStructure> getAll() {
         return salaryStructureDao.getAll();
 
     }

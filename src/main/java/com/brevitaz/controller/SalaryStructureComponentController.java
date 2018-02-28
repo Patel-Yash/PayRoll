@@ -18,28 +18,28 @@ public class SalaryStructureComponentController {
     SalaryStructureComponentDao salaryStructureComponentDao;
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody SalaryStructureComponent salaryStructureComponent) throws IOException {
+    public boolean create(@RequestBody SalaryStructureComponent salaryStructureComponent)  {
         return salaryStructureComponentDao.create(salaryStructureComponent);
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<SalaryStructureComponent> getAll() throws IOException {
+    public List<SalaryStructureComponent> getAll(){
         return salaryStructureComponentDao.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public boolean update(@RequestBody SalaryStructureComponent salaryStructureComponent, @PathVariable String id) throws IOException {
+    public boolean update(@RequestBody SalaryStructureComponent salaryStructureComponent, @PathVariable String id){
         return salaryStructureComponentDao.update(salaryStructureComponent,id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String id) throws IOException {
+    public boolean delete(@PathVariable String id) {
         return salaryStructureComponentDao.delete(id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public SalaryStructureComponent getById(@PathVariable String id) throws IOException {
+    public SalaryStructureComponent getById(@PathVariable String id) {
         return salaryStructureComponentDao.getById(id);
     }
 }

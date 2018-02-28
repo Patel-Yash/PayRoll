@@ -18,6 +18,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,8 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class SalaryStructureDaoImpl implements SalaryStructureDao
-{
+public class SalaryStructureDaoImpl implements SalaryStructureDao {
     //private final String INDEX_NAME = "salary-structure";
     private final String TYPE_NAME = "doc";
 
@@ -45,80 +45,122 @@ public class SalaryStructureDaoImpl implements SalaryStructureDao
 */
 
     @Override
-    public boolean create(SalaryStructure salaryStructure) throws IOException {
-        IndexRequest request = new IndexRequest(
-                indexName,
-                TYPE_NAME,salaryStructure.getId()
-        );
+    public boolean create(SalaryStructure salaryStructure) {
+        try {
+            IndexRequest request = new IndexRequest(
+                    indexName,
+                    TYPE_NAME, salaryStructure.getId()
+            );
 
-        String json = config.getObjectMapper().writeValueAsString(salaryStructure);
+            String json = config.getObjectMapper().writeValueAsString(salaryStructure);
 
-        request.source(json, XContentType.JSON);
+            request.source(json, XContentType.JSON);
 
-        IndexResponse indexResponse= config.getClient().index(request);
+            IndexResponse indexResponse = config.getClient().index(request);
 
-        System.out.println(indexResponse);
-
-        return true;
-    }
-
-    @Override
-    public List<SalaryStructure> getAll() throws IOException {
-        List<SalaryStructure> salaryStructures = new ArrayList<>();
-        SearchRequest request = new SearchRequest(indexName);
-        request.types(TYPE_NAME);
-        SearchResponse response = config.getClient().search(request);
-        SearchHit[] hits = response.getHits().getHits();
-
-        SalaryStructure salaryStructure;
-
-        for (SearchHit hit : hits)
-        {
-            salaryStructure = config.getObjectMapper().readValue(hit.getSourceAsString(), SalaryStructure.class);
-            salaryStructures.add(salaryStructure);
+            System.out.println(indexResponse);
+            if (indexResponse.status() == RestStatus.OK) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return salaryStructures;
-
+        return false;
     }
 
     @Override
-    public boolean update(SalaryStructure salaryStructure,String id) throws IOException {
+    public List<SalaryStructure> getAll() {
+        List<SalaryStructure> salaryStructures = new ArrayList<>();
+        try {
+            SearchRequest request = new SearchRequest(indexName);
+            request.types(TYPE_NAME);
+            SearchResponse response = config.getClient().search(request);
+            SearchHit[] hits = response.getHits().getHits();
+
+            SalaryStructure salaryStructure;
+
+            for (SearchHit hit : hits) {
+                salaryStructure = config.getObjectMapper().readValue(hit.getSourceAsString(), SalaryStructure.class);
+                salaryStructures.add(salaryStructure);
+            }
+            if (response.status() == RestStatus.OK) {
+                return salaryStructures;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public boolean update(SalaryStructure salaryStructure, String id) {
         ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        UpdateRequest updateRequest = new UpdateRequest(
-                indexName,TYPE_NAME,
-                id).doc(objectMapper.writeValueAsString(salaryStructure), XContentType.JSON);
-        UpdateResponse updateResponse = config.getClient().update(updateRequest);
-        System.out.println("Update: "+updateResponse);
-        return true;
+        try {
+            UpdateRequest updateRequest = new UpdateRequest(
+                    indexName, TYPE_NAME,
+                    id).doc(objectMapper.writeValueAsString(salaryStructure), XContentType.JSON);
+            UpdateResponse updateResponse = config.getClient().update(updateRequest);
+            System.out.println("Update: " + updateResponse);
+            if (updateResponse.status() == RestStatus.OK) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public boolean delete(String id) throws IOException {
+    public boolean delete(String id) {
         DeleteRequest request = new DeleteRequest(
                 indexName,
                 TYPE_NAME,
                 id);
+        try {
+            DeleteResponse response = config.getClient().delete(request);
 
-        DeleteResponse response = config.getClient().delete(request);
+            System.out.println(response.status());
 
-        System.out.println(response.status());
-
-        System.out.println(response);
-        return true;
+            System.out.println(response);
+            if (response.status() == RestStatus.OK) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public SalaryStructure getById(String id) throws IOException {
+    public SalaryStructure getById(String id) {
         GetRequest getRequest = new GetRequest(
                 indexName,
                 TYPE_NAME,
                 id);
+        try {
+            GetResponse getResponse = config.getClient().get(getRequest);
 
-        GetResponse getResponse = config.getClient().get(getRequest);
+            SalaryStructure salaryStructure = config.getObjectMapper().readValue(getResponse.getSourceAsString(), SalaryStructure.class);
 
-        SalaryStructure salaryStructure  = config.getObjectMapper().readValue(getResponse.getSourceAsString(),SalaryStructure.class);
-
-        System.out.println(salaryStructure);
-        return salaryStructure;
+            System.out.println(salaryStructure);
+            if (getResponse.isExists())
+            {
+            return salaryStructure;}
+            else {
+                return null;
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

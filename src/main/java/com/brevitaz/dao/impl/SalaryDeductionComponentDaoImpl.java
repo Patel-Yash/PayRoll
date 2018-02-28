@@ -17,6 +17,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,9 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class SalaryDeductionComponentDaoImpl implements SalaryDeductionComponentDao
-{
-   // private final String INDEX_NAME = "salary-deduction-component";
+public class SalaryDeductionComponentDaoImpl implements SalaryDeductionComponentDao {
+    // private final String INDEX_NAME = "salary-deduction-component";
     private final String TYPE_NAME = "doc";
 
     @Value("${SalaryDeductionComponent-Index-Name}")
@@ -44,80 +44,119 @@ public class SalaryDeductionComponentDaoImpl implements SalaryDeductionComponent
 */
 
     @Override
-    public boolean create(SalaryDeductionComponent salaryDeductionComponent) throws IOException {
+    public boolean create(SalaryDeductionComponent salaryDeductionComponent) {
         IndexRequest request = new IndexRequest(
                 indexName,
-                TYPE_NAME,""+salaryDeductionComponent.getId()
-        );
+                TYPE_NAME, "" + salaryDeductionComponent.getId());
+        try {
+            String json = config.getObjectMapper().writeValueAsString(salaryDeductionComponent);
 
-        String json = config.getObjectMapper().writeValueAsString(salaryDeductionComponent);
+            request.source(json, XContentType.JSON);
 
-        request.source(json, XContentType.JSON);
+            IndexResponse indexResponse = config.getClient().index(request);
 
-        IndexResponse indexResponse= config.getClient().index(request);
-
-        System.out.println(indexResponse);
-
-        return true;
+            System.out.println(indexResponse);
+            if (indexResponse.status() == RestStatus.OK) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public List<SalaryDeductionComponent> getAll() throws IOException {
-        List<SalaryDeductionComponent > salaryDeductionComponents = new ArrayList<>();
+    public List<SalaryDeductionComponent> getAll() {
+        List<SalaryDeductionComponent> salaryDeductionComponents = new ArrayList<>();
         SearchRequest request = new SearchRequest(indexName);
         request.types(TYPE_NAME);
-        SearchResponse response = config.getClient().search(request);
-        SearchHit[] hits = response.getHits().getHits();
+        try {
+            SearchResponse response = config.getClient().search(request);
+            SearchHit[] hits = response.getHits().getHits();
 
-        SalaryDeductionComponent salaryDeductionComponent;
-        for (SearchHit hit : hits)
-        {
-            salaryDeductionComponent = config.getObjectMapper().readValue(hit.getSourceAsString(), SalaryDeductionComponent.class);
-            salaryDeductionComponents.add(salaryDeductionComponent);
+            SalaryDeductionComponent salaryDeductionComponent;
+            for (SearchHit hit : hits) {
+                salaryDeductionComponent = config.getObjectMapper().readValue(hit.getSourceAsString(), SalaryDeductionComponent.class);
+                salaryDeductionComponents.add(salaryDeductionComponent);
+            }
+            if (response.status() == RestStatus.OK) {
+                return salaryDeductionComponents;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return salaryDeductionComponents;
-
+        return null;
     }
 
     @Override
-    public boolean update(SalaryDeductionComponent salaryDeductionComponent,String id) throws IOException {
+    public boolean update(SalaryDeductionComponent salaryDeductionComponent, String id) {
         ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        UpdateRequest updateRequest = new UpdateRequest(
-                indexName,TYPE_NAME,
-                id).doc(objectMapper.writeValueAsString(salaryDeductionComponent), XContentType.JSON);
-        UpdateResponse updateResponse = config.getClient().update(updateRequest);
-        System.out.println("Update: "+updateResponse);
-        return true;
+        try {
+            UpdateRequest updateRequest = new UpdateRequest(
+                    indexName, TYPE_NAME,
+                    id).doc(objectMapper.writeValueAsString(salaryDeductionComponent), XContentType.JSON);
+            UpdateResponse updateResponse = config.getClient().update(updateRequest);
+            System.out.println("Update: " + updateResponse);
+            if (updateResponse.status() == RestStatus.OK) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public boolean delete(String id) throws IOException {
-        DeleteRequest request = new DeleteRequest(
-                indexName,
-                TYPE_NAME,
-                id);
+    public boolean delete(String id) {
+        try {
+            DeleteRequest request = new DeleteRequest(
+                    indexName,
+                    TYPE_NAME,
+                    id);
 
-        DeleteResponse response = config.getClient().delete(request);
+            DeleteResponse response = config.getClient().delete(request);
 
-        System.out.println(response.status());
+            System.out.println(response.status());
 
-        System.out.println(response);
-        return true;
+            System.out.println(response);
+            if (response.status() == RestStatus.OK) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public SalaryDeductionComponent getById(String id) throws IOException {
-        GetRequest getRequest = new GetRequest(
-                indexName,
-                TYPE_NAME,
-                id);
+    public SalaryDeductionComponent getById(String id) {
+        try {
+            GetRequest getRequest = new GetRequest(
+                    indexName,
+                    TYPE_NAME,
+                    id);
 
-        GetResponse getResponse = config.getClient().get(getRequest);
+            GetResponse getResponse = config.getClient().get(getRequest);
 
-        SalaryDeductionComponent salaryDeductionComponent  = config.getObjectMapper().readValue(getResponse.getSourceAsString(),SalaryDeductionComponent.class);
+            SalaryDeductionComponent salaryDeductionComponent = config.getObjectMapper().readValue(getResponse.getSourceAsString(), SalaryDeductionComponent.class);
 
-        System.out.println(salaryDeductionComponent);
-        return salaryDeductionComponent;
+            System.out.println(salaryDeductionComponent);
+            if (getResponse.isExists()) {
+                return salaryDeductionComponent;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
-
 }

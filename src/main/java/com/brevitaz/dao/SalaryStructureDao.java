@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface SalaryStructureDao
 {
-    public boolean create(SalaryStructure salaryStructure) throws IOException;
-    public List<SalaryStructure> getAll() throws IOException;
-    public boolean update(SalaryStructure salaryStructure,String id) throws IOException;
-    public boolean delete(String id)throws IOException;
-    public SalaryStructure getById(String id)throws IOException;
+    public boolean create(SalaryStructure salaryStructure) ;
+    public List<SalaryStructure> getAll() ;
+    public boolean update(SalaryStructure salaryStructure,String id) ;
+    public boolean delete(String id);
+    public SalaryStructure getById(String id);
 }

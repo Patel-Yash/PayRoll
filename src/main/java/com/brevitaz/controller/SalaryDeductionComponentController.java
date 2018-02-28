@@ -18,28 +18,28 @@ public class SalaryDeductionComponentController {
     SalaryDeductionComponentDao salaryDeductionComponentDao;
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody SalaryDeductionComponent salaryDeductionComponent) throws IOException {
+    public boolean create(@RequestBody SalaryDeductionComponent salaryDeductionComponent) {
         return salaryDeductionComponentDao.create(salaryDeductionComponent);
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<SalaryDeductionComponent> getAll() throws IOException {
+    public List<SalaryDeductionComponent> getAll()  {
         return salaryDeductionComponentDao.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public boolean update(@RequestBody SalaryDeductionComponent salaryDeductionComponent, @PathVariable String id) throws IOException {
+    public boolean update(@RequestBody SalaryDeductionComponent salaryDeductionComponent, @PathVariable String id) {
         return salaryDeductionComponentDao.update(salaryDeductionComponent,id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String id) throws IOException {
+    public boolean delete(@PathVariable String id) {
         return salaryDeductionComponentDao.delete(id);
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public SalaryDeductionComponent getById(@PathVariable String id) throws IOException {
+    public SalaryDeductionComponent getById(@PathVariable String id)  {
         return salaryDeductionComponentDao.getById(id);
     }
 }

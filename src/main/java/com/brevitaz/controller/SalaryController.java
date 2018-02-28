@@ -18,32 +18,32 @@ public class SalaryController {
     SalaryDao salaryDao;
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean create(@RequestBody Salary salary) throws IOException// give salary a ssid
+    public boolean create(@RequestBody Salary salary) // give salary a ssid
     {
         return salaryDao.create(salary);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Salary> getAll() throws IOException {
+    public List<Salary> getAll() {
         return salaryDao.getAll();
 
 
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public boolean update(@RequestBody Salary salary, @PathVariable String id) throws IOException {
+    public boolean update(@RequestBody Salary salary, @PathVariable String id) {
         return salaryDao.update(salary,id);
 
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.DELETE})
-    public boolean delete(@PathVariable String id) throws IOException {
+    public boolean delete(@PathVariable String id)  {
         return salaryDao.delete(id);
 
     }
 
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public Salary getById(@PathVariable String id) throws IOException {
+    public Salary getById(@PathVariable String id) {
        return salaryDao.getById(id);
 
     }

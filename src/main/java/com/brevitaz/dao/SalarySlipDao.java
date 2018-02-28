@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface SalarySlipDao
 {
-    public boolean create(SalarySlip salarySlip) throws IOException;
-    public List<SalarySlip> getAll() throws IOException;
-    public boolean update(SalarySlip salarySlip,String id) throws IOException;
-    public boolean delete(String id)throws IOException;
-    public SalarySlip getById(String id)throws IOException;
+    public boolean create(SalarySlip salarySlip);
+    public List<SalarySlip> getAll() ;
+    public boolean update(SalarySlip salarySlip,String id) ;
+    public boolean delete(String id);
+    public SalarySlip getById(String id);
 }

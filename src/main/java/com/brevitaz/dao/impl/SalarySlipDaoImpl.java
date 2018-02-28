@@ -17,6 +17,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.SearchHit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,8 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class SalarySlipDaoImpl implements SalarySlipDao
-{
+public class SalarySlipDaoImpl implements SalarySlipDao {
     //private final String INDEX_NAME = "salary-slip";
     private final String TYPE_NAME = "doc";
 
@@ -44,80 +44,128 @@ public class SalarySlipDaoImpl implements SalarySlipDao
 */
 
     @Override
-    public boolean create(SalarySlip salarySlip) throws IOException {
-        IndexRequest request = new IndexRequest(
-                indexName,
-                TYPE_NAME,salarySlip.getEmployeeId()
-        );
+    public boolean create(SalarySlip salarySlip) {
+        try {
+            IndexRequest request = new IndexRequest(
+                    indexName,
+                    TYPE_NAME, salarySlip.getEmployeeId()
+            );
 
-        String json = config.getObjectMapper().writeValueAsString(salarySlip);
+            String json = config.getObjectMapper().writeValueAsString(salarySlip);
 
-        request.source(json, XContentType.JSON);
+            request.source(json, XContentType.JSON);
 
-        IndexResponse indexResponse= config.getClient().index(request);
+            IndexResponse indexResponse = config.getClient().index(request);
 
-        System.out.println(indexResponse);
-
-        return true;
-    }
-
-    @Override
-    public List<SalarySlip> getAll() throws IOException {
-        List<SalarySlip> salarySlips = new ArrayList<>();
-        SearchRequest request = new SearchRequest(indexName);
-        request.types(TYPE_NAME);
-        SearchResponse response = config.getClient().search(request);
-        SearchHit[] hits = response.getHits().getHits();
-
-        SalarySlip salarySlip;
-
-        for (SearchHit hit : hits)
-        {
-            salarySlip = config.getObjectMapper().readValue(hit.getSourceAsString(), SalarySlip.class);
-            salarySlips.add(salarySlip);
+            System.out.println(indexResponse);
+            if (indexResponse.status() == RestStatus.OK) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return salarySlips;
-
+        return false;
     }
 
     @Override
-    public boolean update(SalarySlip salarySlip,String id) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        UpdateRequest updateRequest = new UpdateRequest(
-                indexName,TYPE_NAME,
-                id).doc(objectMapper.writeValueAsString(salarySlip), XContentType.JSON);
-        UpdateResponse updateResponse = config.getClient().update(updateRequest);
-        System.out.println("Update: "+updateResponse);
-        return true;
+    public List<SalarySlip> getAll() {
+        try {
+            List<SalarySlip> salarySlips = new ArrayList<>();
+            SearchRequest request = new SearchRequest(indexName);
+            request.types(TYPE_NAME);
+            SearchResponse response = config.getClient().search(request);
+            SearchHit[] hits = response.getHits().getHits();
+
+            SalarySlip salarySlip;
+
+            for (SearchHit hit : hits) {
+                salarySlip = config.getObjectMapper().readValue(hit.getSourceAsString(), SalarySlip.class);
+                salarySlips.add(salarySlip);
+            }
+            if (response.status() == RestStatus.OK) {
+                return salarySlips;
+            } else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    public boolean delete(String id) throws IOException {
-        DeleteRequest request = new DeleteRequest(
-                indexName,
-                TYPE_NAME,
-                id);
-
-        DeleteResponse response = config.getClient().delete(request);
-
-        System.out.println(response.status());
-
-        System.out.println(response);
-        return true;
+    public boolean update(SalarySlip salarySlip, String id) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            UpdateRequest updateRequest = new UpdateRequest(
+                    indexName, TYPE_NAME,
+                    id).doc(objectMapper.writeValueAsString(salarySlip), XContentType.JSON);
+            UpdateResponse updateResponse = config.getClient().update(updateRequest);
+            System.out.println("Update: " + updateResponse);
+            if (updateResponse.status() == RestStatus.OK) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
-    public SalarySlip getById(String id) throws IOException {
-        GetRequest getRequest = new GetRequest(
-                indexName,
-                TYPE_NAME,
-                id);
+    public boolean delete(String id) {
+        try {
+            DeleteRequest request = new DeleteRequest(
+                    indexName,
+                    TYPE_NAME,
+                    id);
 
-        GetResponse getResponse = config.getClient().get(getRequest);
+            DeleteResponse response = config.getClient().delete(request);
 
-        SalarySlip salarySlip  = config.getObjectMapper().readValue(getResponse.getSourceAsString(),SalarySlip.class);
+            System.out.println(response.status());
 
-        System.out.println(salarySlip);
-        return salarySlip;
+            System.out.println(response);
+            if (response.status() == RestStatus.OK) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public SalarySlip getById(String id) {
+        try {
+            GetRequest getRequest = new GetRequest(
+                    indexName,
+                    TYPE_NAME,
+                    id);
+
+            GetResponse getResponse = config.getClient().get(getRequest);
+
+            SalarySlip salarySlip = config.getObjectMapper().readValue(getResponse.getSourceAsString(), SalarySlip.class);
+
+            System.out.println(salarySlip);
+            if (getResponse.isExists())
+            {
+                return salarySlip;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
