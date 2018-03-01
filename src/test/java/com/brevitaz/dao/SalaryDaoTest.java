@@ -70,15 +70,18 @@ public class SalaryDaoTest
         salary.setGrossSalary(600000);
         salary.setVariablePay(30000);
         salary.setOtherAllowance(100000);
+        salaryDao.create(salary);
 
         Salary salary1 = new Salary();
-        salary.setVariablePay(600);
-        salary.setOtherAllowance(200);
+        salary1.setEmployeeId("4");
+        salary1.setOtherAllowance(200);
         salaryDao.update(salary1,"3");
 
         Salary salary2 = salaryDao.getById("3");
-        Assert.assertEquals(salary2.getOtherAllowance(),salary1.getOtherAllowance());
-        salaryDao.delete("3");
+
+        Assert.assertEquals(salary2.getEmployeeId(),salary1.getEmployeeId());
+
+      salaryDao.delete("3");
 
 
 

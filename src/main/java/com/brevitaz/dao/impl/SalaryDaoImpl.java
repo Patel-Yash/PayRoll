@@ -52,7 +52,7 @@ public class SalaryDaoImpl implements SalaryDao
 
         IndexRequest request = new IndexRequest(
                 indexName,
-                TYPE_NAME,""+salary.getEmployeeId());
+                TYPE_NAME,salary.getId());
         try {
 
             String json = config.getObjectMapper().writeValueAsString(salary);

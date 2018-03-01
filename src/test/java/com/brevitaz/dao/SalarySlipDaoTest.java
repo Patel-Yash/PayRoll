@@ -25,23 +25,38 @@ public class SalarySlipDaoTest
         salarySlip.setId("1");
         salarySlip.setEmployeeId("1");
         salarySlip.setVariablePay(60000);
+        salarySlipDao.create(salarySlip);
 
-        boolean status = salarySlipDao.create(salarySlip);
-        Assert.assertEquals(true,status);
+        SalarySlip salarySlip1 = salarySlipDao.getById("1");
+        Assert.assertEquals(salarySlip1.getEmployeeId(),salarySlip.getEmployeeId());
+        salarySlipDao.delete("1");
     }
 
     @Test
     public void getAllTest() throws IOException {
         SalarySlip salarySlip = new SalarySlip();
         salarySlip.setId("2");
-        salarySlip.setEmployeeId("2");
+        salarySlip.setEmployeeId("1");
         salarySlip.setVariablePay(30000);
+        salarySlipDao.create(salarySlip);
 
-        boolean status = salarySlipDao.create(salarySlip);
-        Assert.assertEquals(true,status);
+        SalarySlip salarySlip1 = new SalarySlip();
+        salarySlip1.setId("1");
+        salarySlip1.setEmployeeId("2");
+        salarySlip1.setVariablePay(30000);
+        salarySlipDao.create(salarySlip1);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         List<SalarySlip> salarySlips = salarySlipDao.getAll();
-        Assert.assertNotNull(salarySlips);
+        int size = salarySlips.size();
+        Assert.assertEquals(2,size);
+       salarySlipDao.delete("1");
+       salarySlipDao.delete("2");
     }
 
     @Test
@@ -50,13 +65,19 @@ public class SalarySlipDaoTest
         salarySlip.setId("3");
         salarySlip.setEmployeeId("3");
         salarySlip.setVariablePay(60000);
+        salarySlipDao.create(salarySlip);
 
-        boolean status = salarySlipDao.create(salarySlip);
-        Assert.assertEquals(true,status);
+        SalarySlip salarySlip1 = new SalarySlip();
+        salarySlip1.setEmployeeId("2");
+        salarySlip1.setVariablePay(200);
+        salarySlipDao.update(salarySlip1,"3");
 
-        salarySlip.setVariablePay(30000);
-        boolean status1 = salarySlipDao.update(salarySlip,"3");
-        Assert.assertEquals(true,status1);
+        SalarySlip salarySlip2 = salarySlipDao.getById("3");
+
+        Assert.assertEquals(salarySlip2.getEmployeeId(),salarySlip1.getEmployeeId());
+
+        salarySlipDao.delete("3");
+
     }
 
     @Test
@@ -65,12 +86,14 @@ public class SalarySlipDaoTest
         salarySlip.setId("4");
         salarySlip.setEmployeeId("4");
         salarySlip.setVariablePay(60000);
+        salarySlipDao.create(salarySlip);
 
-        boolean status = salarySlipDao.create(salarySlip);
-        Assert.assertEquals(true,status);
+        salarySlipDao.delete("4");
+        SalarySlip salarySlip1 = salarySlipDao.getById("4");
 
-        boolean status1 = salarySlipDao.delete("4");
-        Assert.assertEquals(true,status1);
+        Assert.assertNull(salarySlip1);
+
+
     }
 
     @Test
@@ -79,12 +102,13 @@ public class SalarySlipDaoTest
         salarySlip.setId("5");
         salarySlip.setEmployeeId("5");
         salarySlip.setVariablePay(6000);
-
-        boolean status = salarySlipDao.create(salarySlip);
-        Assert.assertEquals(true,status);
+        salarySlipDao.create(salarySlip);
 
         SalarySlip salarySlip1 = salarySlipDao.getById("5");
-        Assert.assertNotNull(salarySlip1);
+
+        Assert.assertEquals(salarySlip1.getEmployeeId(),salarySlip.getEmployeeId());
+
+        salarySlipDao.delete("5");
     }
 
 }
