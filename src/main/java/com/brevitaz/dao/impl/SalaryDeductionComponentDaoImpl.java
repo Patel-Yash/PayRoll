@@ -45,6 +45,8 @@ public class SalaryDeductionComponentDaoImpl implements SalaryDeductionComponent
 
     @Override
     public boolean create(SalaryDeductionComponent salaryDeductionComponent) {
+        config.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
         IndexRequest request = new IndexRequest(
                 indexName,
                 TYPE_NAME, "" + salaryDeductionComponent.getId());

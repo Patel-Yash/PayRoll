@@ -48,6 +48,8 @@ public class SalaryDaoImpl implements SalaryDao
 
     @Override
     public boolean create(Salary salary)  {
+        config.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
         IndexRequest request = new IndexRequest(
                 indexName,
                 TYPE_NAME,""+salary.getEmployeeId());

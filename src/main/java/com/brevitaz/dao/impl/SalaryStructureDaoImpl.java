@@ -46,6 +46,8 @@ public class SalaryStructureDaoImpl implements SalaryStructureDao {
 
     @Override
     public boolean create(SalaryStructure salaryStructure) {
+        config.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
         try {
             IndexRequest request = new IndexRequest(
                     indexName,
