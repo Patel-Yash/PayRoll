@@ -45,6 +45,8 @@ public class SalarySlipDaoImpl implements SalarySlipDao {
 
     @Override
     public boolean create(SalarySlip salarySlip) {
+        config.getObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
         try {
             IndexRequest request = new IndexRequest(
                     indexName,

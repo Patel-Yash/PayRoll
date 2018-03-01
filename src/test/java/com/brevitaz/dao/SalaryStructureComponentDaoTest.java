@@ -1,6 +1,7 @@
 package com.brevitaz.dao;
 
 import com.brevitaz.model.SalaryStructureComponent;
+import com.brevitaz.model.Type;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,88 +17,94 @@ import java.util.List;
 @SpringBootTest
 public class SalaryStructureComponentDaoTest
 {
-  /*  @Autowired
+    @Autowired
     SalaryStructureComponentDao salaryStructureComponentDao;
 
     @Test
     public void createTest() throws IOException {
         SalaryStructureComponent salaryStructureComponent= new SalaryStructureComponent();
-
-        salaryStructureComponent.setId("1");
+        salaryStructureComponent.setId("11");
         salaryStructureComponent.setDisplayName("Basic");
         salaryStructureComponent.setName("Basic@12%");
         salaryStructureComponent.setValue(12);
+        salaryStructureComponentDao.create(salaryStructureComponent);
 
-        boolean status = salaryStructureComponentDao.create(salaryStructureComponent);
-        Assert.assertEquals(true,status);
+        SalaryStructureComponent salaryStructureComponent1 = salaryStructureComponentDao.getById("11");
+        Assert.assertEquals(salaryStructureComponent1.getName(),salaryStructureComponent.getName());
+
+        salaryStructureComponentDao.delete("11");
     }
 
     @Test
     public void getAllTest() throws IOException {
         SalaryStructureComponent salaryStructureComponent= new SalaryStructureComponent();
+        salaryStructureComponent.setId("11");
+        salaryStructureComponent.setDisplayName("Basic");
+        salaryStructureComponent.setName("Basic@12%");
+        salaryStructureComponent.setValue(12);
+        salaryStructureComponentDao.create(salaryStructureComponent);
 
-        salaryStructureComponent.setId("2");
-        salaryStructureComponent.setDisplayName("HRA");
-        salaryStructureComponent.setName("HRA@10%");
-        salaryStructureComponent.setValue(10);
-
-        boolean status = salaryStructureComponentDao.create(salaryStructureComponent);
-        Assert.assertEquals(true,status);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         List<SalaryStructureComponent> salaryStructureComponents = salaryStructureComponentDao.getAll();
         int size = salaryStructureComponents.size();
-        System.out.println("SIZE IS:"+size);
-        Assert.assertEquals(2,size);
+        Assert.assertEquals(1,size);
 
+        salaryStructureComponentDao.delete("11");
     }
 
     @Test
     public void updateTest() throws IOException {
         SalaryStructureComponent salaryStructureComponent= new SalaryStructureComponent();
+        salaryStructureComponent.setId("11");
+        salaryStructureComponent.setDisplayName("Basic");
+        salaryStructureComponent.setName("Basic@12%");
+        salaryStructureComponent.setValue(12);
+        salaryStructureComponentDao.create(salaryStructureComponent);
 
-        salaryStructureComponent.setId("3");
-        salaryStructureComponent.setDisplayName("CE");
-        salaryStructureComponent.setName("CE@2000F");
-        salaryStructureComponent.setValue(2000);
+        SalaryStructureComponent salaryStructureComponent1 = new SalaryStructureComponent();
+        salaryStructureComponent1.setName("Basics");
+        salaryStructureComponentDao.update(salaryStructureComponent1,"11");
 
-        boolean status = salaryStructureComponentDao.create(salaryStructureComponent);
-        Assert.assertEquals(true,status);
+        SalaryStructureComponent salaryStructureComponent2 =salaryStructureComponentDao.getById("11");
+        Assert.assertEquals(salaryStructureComponent2.getName(),salaryStructureComponent1.getName());
 
-        salaryStructureComponent.setName("CE@2000");
-        boolean status1 = salaryStructureComponentDao.update(salaryStructureComponent,"3");
-        Assert.assertEquals(true,status1);
+        salaryStructureComponentDao.delete("11");
     }
 
     @Test
     public void deleteTest() throws IOException {
         SalaryStructureComponent salaryStructureComponent= new SalaryStructureComponent();
+        salaryStructureComponent.setId("11");
+        salaryStructureComponent.setDisplayName("Basic");
+        salaryStructureComponent.setName("Basic@12%");
+        salaryStructureComponent.setValue(12);
+        salaryStructureComponentDao.create(salaryStructureComponent);
 
-        salaryStructureComponent.setId("4");
-        salaryStructureComponent.setDisplayName("djsn");
-        salaryStructureComponent.setName("djkdm");
-        salaryStructureComponent.setValue(10);
+        salaryStructureComponentDao.delete("11");
 
-        boolean status = salaryStructureComponentDao.create(salaryStructureComponent);
-        Assert.assertEquals(true,status);
+        SalaryStructureComponent salaryStructureComponent1 = salaryStructureComponentDao.getById("11");
+        Assert.assertNull(salaryStructureComponent1);
 
-        boolean status1 = salaryStructureComponentDao.delete("4");
-        Assert.assertEquals(true,status1);
     }
 
     @Test
     public void getByIdTest() throws IOException {
         SalaryStructureComponent salaryStructureComponent= new SalaryStructureComponent();
+        salaryStructureComponent.setId("11");
+        salaryStructureComponent.setDisplayName("Basic");
+        salaryStructureComponent.setName("Basic@12%");
+        salaryStructureComponent.setValue(12);
+        salaryStructureComponentDao.create(salaryStructureComponent);
 
-        salaryStructureComponent.setId("4");
-        salaryStructureComponent.setDisplayName("HRAS");
-        salaryStructureComponent.setName("HRAS@5000");
-        salaryStructureComponent.setValue(5000);
+        SalaryStructureComponent salaryStructureComponent1 = salaryStructureComponentDao.getById("11");
+        Assert.assertEquals(salaryStructureComponent1.getName(),salaryStructureComponent.getName());
 
-        boolean status = salaryStructureComponentDao.create(salaryStructureComponent);
-        Assert.assertEquals(true,status);
-
-        SalaryStructureComponent salaryStructureComponent1 = salaryStructureComponentDao.getById("4");
-        Assert.assertNotNull(salaryStructureComponent1);
+        salaryStructureComponentDao.delete("11");
     }
-*/
+
 }
