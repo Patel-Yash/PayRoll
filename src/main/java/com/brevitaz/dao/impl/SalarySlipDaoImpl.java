@@ -50,7 +50,7 @@ public class SalarySlipDaoImpl implements SalarySlipDao {
         try {
             IndexRequest request = new IndexRequest(
                     indexName,
-                    TYPE_NAME, salarySlip.getEmployeeId()
+                    TYPE_NAME, salarySlip.getId()
             );
 
             String json = config.getObjectMapper().writeValueAsString(salarySlip);
@@ -60,7 +60,7 @@ public class SalarySlipDaoImpl implements SalarySlipDao {
             IndexResponse indexResponse = config.getClient().index(request);
 
             System.out.println(indexResponse);
-            if (indexResponse.status() == RestStatus.OK) {
+            if (indexResponse.status() == RestStatus.CREATED) {
                 return true;
             } else {
                 return false;
