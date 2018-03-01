@@ -63,4 +63,19 @@ public class SalaryStructureComponent {
                 '}';
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SalaryStructureComponent that = (SalaryStructureComponent) o;
+
+        if (Double.compare(that.value, value) != 0) return false;
+        if (!id.equals(that.id)) return false;
+        if (!displayName.equals(that.displayName)) return false;
+        if (!name.equals(that.name)) return false;
+        return type == that.type;
+    }
+
 }
