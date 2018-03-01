@@ -1,6 +1,7 @@
 package com.brevitaz.dao;
 
 
+import com.brevitaz.model.Employee;
 import com.brevitaz.model.Salary;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,26 +30,35 @@ public class SalaryDaoTest
         salary.setVariablePay(60000);
         salary.setOtherAllowance(20000);
 
-        boolean status = salaryDao.create(salary);
-        Assert.assertEquals(true,status);
+        Salary salary1 = salaryDao.getById("1");
+        Assert.assertEquals(salary1.getEmployeeId(),salary.getEmployeeId());
+        salaryDao.delete("1");
     }
 
     @Test
     public void getAllTest() throws IOException {
         Salary salary = new Salary();
-        salary.setId("2");
-        salary.setEmployeeId("2");
-        salary.setSalaryStructureId("2");
+        salary.setId("1");
+        salary.setEmployeeId("AA");
+        salary.setSalaryStructureId("1");
         salary.setGrossSalary(120000);
         salary.setVariablePay(6000);
         salary.setOtherAllowance(2000);
+        salaryDao.create(salary);
 
-        boolean status = salaryDao.create(salary);
-        Assert.assertEquals(true,status);
+        Salary salary1 = new Salary();
+        salary.setId("2");
+        salary.setEmployeeId("BB");
+        salary.setSalaryStructureId("2");
+        salary.setGrossSalary(12000);
+        salary.setVariablePay(600);
+        salary.setOtherAllowance(200);
+        salaryDao.create(salary1);
 
         List<Salary> salaries = salaryDao.getAll();
-        int size = salaries.size();
-        Assert.assertEquals(2,size);
+        Assert.assertEquals(2,salaries);
+        salaryDao.delete("1");
+        salaryDao.delete("2");
     }
 
     @Test
@@ -61,12 +71,17 @@ public class SalaryDaoTest
         salary.setVariablePay(30000);
         salary.setOtherAllowance(100000);
 
-        boolean status = salaryDao.create(salary);
-        Assert.assertEquals(true,status);
+        Salary salary1 = new Salary();
+        salary.setVariablePay(600);
+        salary.setOtherAllowance(200);
+        salaryDao.update(salary1,"3");
 
-        salary.setOtherAllowance(10000);
-        boolean status1 = salaryDao.update(salary,"3");
-        Assert.assertEquals(true,status1);
+        Salary salary2 = salaryDao.getById("3");
+        Assert.assertEquals(salary2.getOtherAllowance(),salary1.getOtherAllowance());
+        salaryDao.delete("3");
+
+
+
     }
 
     @Test
@@ -78,12 +93,13 @@ public class SalaryDaoTest
         salary.setGrossSalary(1200000);
         salary.setVariablePay(60000);
         salary.setOtherAllowance(20000);
+        salaryDao.create(salary);
 
-        boolean status = salaryDao.create(salary);
-        Assert.assertEquals(true,status);
+        salaryDao.delete("4");
 
-        boolean status1 = salaryDao.delete("4");
-        Assert.assertEquals(true,status1);
+        Salary salary1 = salaryDao.getById("4");
+
+        Assert.assertNull(salary1);
     }
 
     @Test

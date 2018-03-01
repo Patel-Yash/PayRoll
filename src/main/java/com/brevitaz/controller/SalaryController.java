@@ -26,8 +26,6 @@ public class SalaryController {
     @RequestMapping(method = RequestMethod.GET)
     public List<Salary> getAll() {
         return salaryDao.getAll();
-
-
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
