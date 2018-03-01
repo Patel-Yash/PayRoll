@@ -21,7 +21,7 @@ public class SalaryStructureComponentDaoTest
     SalaryStructureComponentDao salaryStructureComponentDao;
 
     @Test
-    public void createTest() throws IOException {
+    public void createTest()  {
         SalaryStructureComponent salaryStructureComponent= new SalaryStructureComponent();
         salaryStructureComponent.setId("11");
         salaryStructureComponent.setDisplayName("Basic");
@@ -36,7 +36,7 @@ public class SalaryStructureComponentDaoTest
     }
 
     @Test
-    public void getAllTest() throws IOException {
+    public void getAllTest() {
         SalaryStructureComponent salaryStructureComponent= new SalaryStructureComponent();
         salaryStructureComponent.setId("11");
         salaryStructureComponent.setDisplayName("Basic");
@@ -58,7 +58,7 @@ public class SalaryStructureComponentDaoTest
     }
 
     @Test
-    public void updateTest() throws IOException {
+    public void updateTest()  {
         SalaryStructureComponent salaryStructureComponent= new SalaryStructureComponent();
         salaryStructureComponent.setId("11");
         salaryStructureComponent.setDisplayName("Basic");
@@ -77,7 +77,7 @@ public class SalaryStructureComponentDaoTest
     }
 
     @Test
-    public void deleteTest() throws IOException {
+    public void deleteTest()  {
         SalaryStructureComponent salaryStructureComponent= new SalaryStructureComponent();
         salaryStructureComponent.setId("11");
         salaryStructureComponent.setDisplayName("Basic");
@@ -93,7 +93,7 @@ public class SalaryStructureComponentDaoTest
     }
 
     @Test
-    public void getByIdTest() throws IOException {
+    public void getByIdTest(){
         SalaryStructureComponent salaryStructureComponent= new SalaryStructureComponent();
         salaryStructureComponent.setId("11");
         salaryStructureComponent.setDisplayName("Basic");
